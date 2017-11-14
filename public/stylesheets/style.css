@@ -1,0 +1,48 @@
+.main_img {
+  margin-bottom: -10%;
+  z-index: -1; }
+
+#main_title {
+  color: #f6682F; }
+
+#create_event {
+  color: #0278b8; }
+
+#dropdownMenuLink {
+  background-color: #f8f9fa;
+  color: black; }
+
+#exprience {
+  color: #f6682F; }
+
+.card-img {
+  max-height: 400px;
+  height: auto;
+  margin: 1em; }
+
+.main_search {
+  height: 300px; }
+
+.col-center {
+  margin: 0 auto;
+  float: none; }
+
+.txt-color a {
+  color: white; }
+
+#seemore {
+  width: 200px; }
+
+@media only screen and (max-device-width: 768px) {
+  .main_search {
+    display: none; }
+  #bottom {
+    display: none; }
+  #carouselExampleSlidesOnly {
+    display: none; } }
+
+@media only screen and (min-device-width: 768px) {
+  .main_search_min {
+    display: none; } }
+
+/*# sourceMappingURL=style.css.map */

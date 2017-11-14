@@ -1,5 +1,421 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+    main.img
+    #carouselExampleSlidesOnly.carousel.slide.main_img(data-ride='carousel')
+        .carousel-inner
+            .carousel-item.active
+                img.d-block.w-100(src='images/main_img/first_img.jpg', alt='First slide')
+            |       
+            .carousel-item
+                img.d-block.w-100(src='images/main_img/second_img.jpg', alt='Second slide')
+            |       
+            .carousel-item
+                img.d-block.w-100(src='images/main_img/third_img.jpg', alt='Third slide')
+    |   
+    .main_search.card.m-5.p-0.col-lg-10.mx-auto
+        .card-body.border-0.bg-white
+            h3#exprience.display-3.text-center.m-4 Find your next experience
+            |       
+            .row
+                .col-center
+                    .input-group
+                        input.form-control.form-control-lg(type='text', placeholder='Search events or categories', aria-label='Search')
+                        |             
+                        select.custom-select.d-block.form-control.form-control-lg(required='')
+                            option(value='') All Date
+                            |               
+                            option(value='1') To Day
+                            |               
+                            option(value='2') This Week
+                            |               
+                            option(value='3') Next Week
+                        |             
+                        button.btn.btn-success.btn-lg(type='submit') Search
+    |   
+    .main_search_min
+        h3.text-center Find your next experience
+        |       
+        ul.nav.m-3
+            li.nav-item
+                input.form-control.mr-sm-2(type='text', placeholder='Search events or categories', aria-label='Search')
+            |         
+            li.nav-item
+                .dropdown
+                    button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle.btn-lg(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | All Date
+                    |             
+                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                        a.dropdown-item(href='#') To Day
+                        |               
+                        a.dropdown-item(href='#') This Week
+                        |               
+                        a.dropdown-item(href='#') Next Week
+            |         
+            li.nav-item
+                button.btn.btn-success.btn-lg.my-2.my-sm-0(type='submit') Search
+    |   
+    h1.text-center.m-2.p-2 Popular Events
+    |   
+    .col-lg-10.mx-auto
+        .card-deck
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/67/2495967_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 전주 비빔밥 축제
+                        |             
+                        p.card-text 전라북도 전주시 완산구 현무1길 20
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.26 ~ 2017.10.29
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/61/2378961_image2_1.JPG', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 횡성 한우 축제
+                        |             
+                        p.card-text 강원도 횡성군 횡성읍 섬강둔치 일원
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.19 ~ 2017.10.23
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/90/2485890_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 부산 불꽃 축제
+                        |             
+                        p.card-text 부산광역시 수영구 광안해변로 219
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.28 ~ 2017.10.28
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/88/1187488_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 소요단풍문화제
+                        |             
+                        p.card-text 경기도 동두천시 평화로 2901번길 148-45
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.28 ~ 2017.10.28
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/10/1255310_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 장성백양단풍축제
+                        |             
+                        p.card-text 전라남도 장성군 북하면 백양로 1239
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.27 ~ 2017.10.29
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/86/2362386_image2_1.JPG', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 강릉 커피 축제
+                        |             
+                        p.card-text 강원도 강릉시 난설헌로 131
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.6 ~ 2017.10.9
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/08/2505708_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 하동북천 코스모스 메밀꽃 축제
+                        |             
+                        p.card-text 경기도 하동군 북천면 직전 1길 7
+                    |           
+                    .card-footer
+                        small.text-muted 2017.9.22 ~ 2017.10.9
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/55/1950055_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 진주남강유등축제
+                        |             
+                        p.card-text 경상남도 진주시 남강로 626
+                    |           
+                    .card-footer
+                        small.text-muted 2017.10.01 ~ 2017.10.15
+            |       
+            .col-lg-4.mx-auto
+                .card
+                    img.card-img-top(src='http://tong.visitkorea.or.kr/cms/resource/54/221554_image2_1.jpg', alt='Card image cap')
+                    |           
+                    .card-body
+                        h4.card-title 무창포 신비의 바닷길 대하 전어 축제
+                        |             
+                        p.card-text 충청남도 보령시 웅천읍 열린바다2길 46
+                    |           
+                    .card-footer
+                        small.text-muted 2017.9.23 ~ 2017.10.15
+    |   
+    #seemore.mx-auto
+        button.btn.btn-outline-primary.btn-lg.m-4(type='button') SEE MORE
+    |   
+    h1.text-center.m-2.p-2 Brows by To Categories
+    |   
+    .col-lg-10.mx-auto
+        .card-deck
+            .col-lg-8.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/music.jpg', alt='Card image music')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white MUSIC
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/art.jpg', alt='Card image art')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-brack ART
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/party.jpg', alt='Card image party')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white PARTY
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/food.jpg', alt='Card image food')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white FOOD
+            |       
+            .col-lg-3.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/sport.jpg', alt='Card image sport')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white SPORT
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/drink.jpg', alt='Card image drink')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-drak DRINK
+            |       
+            .col-lg-8.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/networking.jpg', alt='Card image network')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-drak NETWORK
+    |   
+    #bottom.w-100.p-3.bg-dark
+        .container.text-light.col-lg-10.txt-color
+            .row
+                .col
+                    p.text-left Use Eventbrite
+                    |           
+                    a(href='#')
+                        p.text-left How it Works
+                    |           
+                    a(href='#')
+                        p.text-left For Large & Complex Events
+                    |           
+                    a(href='#')
+                        p.text-left Pricing
+                    |           
+                    a(href='#')
+                        p.text-left Community Guidelines
+                    |           
+                    a(href='#')
+                        p.text-left Eventbrite Mobile App
+                    |           
+                    a(href='#')
+                        p.text-left Eventbrite Check-In App
+                    |           
+                    a(href='#')
+                        p.text-left Eventbrite Spectrum
+                    |           
+                    a(href='#')
+                        p.text-left Rally - Fun Things To Do
+                    |           
+                    a(href='#')
+                        p.text-left Event Organizing Resources
+                    |           
+                    a(href='#')
+                        p.text-left Sitemap
+                |         
+                .col
+                    p.text-left plan Events
+                    |           
+                    a(href='#')
+                        p.text-left Conference Management Software
+                    |           
+                    a(href='#')
+                        p.text-left Reunions
+                    |           
+                    a(href='#')
+                        p.text-left Nonprofits & Fundraisers
+                    |           
+                    a(href='#')
+                        p.text-left Eventbrite Reviews
+                    |           
+                    a(href='#')
+                        p.text-left Sell Tickets
+                    |           
+                    a(href='#')
+                        p.text-left Event Management & Planning
+                    |           
+                    a(href='#')
+                        p.text-left Online Event Registration
+                    |           
+                    a(href='#')
+                        p.text-left Online RSVP
+                    |           
+                    a(href='#')
+                        p.text-left Venue Booking & Management
+                    |           
+                    a(href='#')
+                        p.text-left Event Promotion
+                |         
+                .col
+                    p.text-left Find Events
+                    |           
+                    a(href='#')
+                        p.text-left Boston Events
+                    |           
+                    a(href='#')
+                        p.text-left Chicago Events
+                    |           
+                    a(href='#')
+                        p.text-left Denver Events
+                    |           
+                    a(href='#')
+                        p.text-left Houston Events
+                    |           
+                    a(href='#')
+                        p.text-left Los Angeles Events
+                    |           
+                    a(href='#')
+                        p.text-left Nashville Events
+                    |           
+                    a(href='#')
+                        p.text-left New York Events
+                    |           
+                    a(href='#')
+                        p.text-left San Diego Events
+                    |           
+                    a(href='#')
+                        p.text-left San Francisco Events
+                    |           
+                    a(href='#')
+                        p.text-left All Cities
+                |         
+                .col
+                    a(href='#')
+                        p.text-left Connent With Us
+                    |           
+                    a(href='#')
+                        p.text-left Contact Support
+                    |           
+                    a(href='#')
+                        p.text-left Contact Sales
+                    |           
+                    a(href='#')
+                        p.text-left Twitter
+                    |           
+                    a(href='#')
+                        p.text-left Facebook
+                    |           
+                    a(href='#')
+                        p.text-left LinkedIn
+                    |           
+                    a(href='#')
+                        p.text-left Instagram
+                    |           
+                    a(href='#')
+                        p.text-left Google+
+        |     
+        .container.text-light.col-lg-10.border.border-right-0.border-left-0.border-light.txt-color
+            .row
+                .col
+                    p.text-left Country
+                    |           
+                    a.m-3(href='#') Argentina
+                    |           
+                    a.m-3(href='#') Australia
+                    |           
+                    a.m-3(href='#') Brasil
+                    |           
+                    a.m-3(href='#') Canada(EN)
+                    |           
+                    a.m-3(href='#') Canada(FR)
+                    |           
+                    a.m-3(href='#') Chile
+                    |           
+                    a.m-3(href='#') Colombia
+                    |           
+                    a.m-3(href='#') Deutschland
+                    |           
+                    a.m-3(href='#') Espana
+                    |           
+                    a.m-3(href='#') France
+                    |           
+                    a.m-3(href='#') Hong Kong
+                    |           
+                    a.m-3(href='#') Ireland
+                    |           
+                    a.m-3(href='#') Italia
+                    |           
+                    a.m-3(href='#') Mexico
+                    |           
+                    a.m-3(href='#') Nederland
+                    |           
+                    a.m-3(href='#') New Zealand
+                    |           
+                    a.m-3(href='#') Peru
+                    |           
+                    a.m-3(href='#') Portugal
+                    |           
+                    a.m-3(href='#') Singapore
+                    |           
+                    a.m-3(href='#') United Kingdom
+                    |           
+                    a.m-3(href='#') United States
+        |     
+        .container.text-light.col-lg-10
+            nav.nav
+                a.nav-link.disabled(href='#') About
+                |         
+                a.nav-link.disabled(href='#') Blog
+                |         
+                a.nav-link.disabled(href='#') Help
+                |         
+                a.nav-link.disabled(href='#') Careers
+                |         
+                a.nav-link.disabled(href='#') Press
+                |         
+                a.nav-link.disabled(href='#') Security
+                |         
+                a.nav-link.disabled(href='#') Developers
+                |         
+                a.nav-link.disabled(href='#') Terms
+                |         
+                a.nav-link.disabled(href='#') Privacy
+                |         
+                a.nav-link.disabled(href='#') Cookies

@@ -1,0 +1,33 @@
+
+// navbar
+nav.navbar.navbar-expand-md.navbar-light.bg-light
+    a#main_title.navbar-brand(href='#') Eventbrtie
+    |     
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    // collaps navbar
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+        |       
+        ul.navbar-nav
+            li.nav-item
+                .dropdown.show
+                    a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle.border-0(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                        | LEARN MORE
+                    |             
+                    .dropdown-menu(aria-labelledby='dropdownMenuLink')
+                        a.dropdown-item(href='#') Blog
+                        |               
+                        a.dropdown-item(href='#') Resources
+                        |               
+                        a.dropdown-item(href='#') Fees
+            |         
+            li.nav-item
+                a.nav-link(href='#')
+                    | SIGN IN
+                    span.sr-only (current)
+            |         
+            li.nav-item
+                a#create_event.nav-link(href='#')
+                    | CREATE EVENT
+                    span.sr-only (current)
