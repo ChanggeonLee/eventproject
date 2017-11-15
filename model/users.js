@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -14,13 +14,13 @@ var schema = new Schema({
   toObject: {virtuals: true}
 });
 
-// schema.methods.generateHash = function(password) {
-//   return bcrypt.hash(password, 10); // return Promise
-// };
+schema.methods.generateHash = function(password) {
+  return bcrypt.hash(password, 10); // return Promise
+};
 
-// schema.methods.validatePassword = function(password) {
-//   return bcrypt.compare(password, this.password); // return Promise
-// };
+schema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password); // return Promise
+};
 
 var User = mongoose.model('User', schema);
 
