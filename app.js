@@ -33,6 +33,8 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/users',express.static(path.join(__dirname, 'public')));
+app.use('/event',express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);

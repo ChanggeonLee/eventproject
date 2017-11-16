@@ -17,6 +17,11 @@
   background-color: #ffee00;
   border-color: #ffee00; }
 
+.registerbutton {
+  color: white;
+  background-color: #f6682F;
+  border-color: #f6682F; }
+
 .main_img {
   margin-bottom: -10%;
   z-index: -1; }
