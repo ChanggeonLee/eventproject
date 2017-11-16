@@ -20,10 +20,6 @@ schema.methods.generateHash = function(password) {
   return bcrypt.hash(password, 10); // return Promise
 };
 
-schema.methods.con = function(){
-  console.log("씨발");
-};
-
 schema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password); // return Promise
 };

@@ -7,7 +7,7 @@ module.exports = (app, passport) => {
     
     // local login
     app.post('/signin', passport.authenticate('local-signin', {
-      successRedirect : '/questions', // redirect to the secure profile section
+      successRedirect : '/', // redirect to the secure profile section
       failureRedirect : '/signin', // redirect back to the signup page if there is an error
       failureFlash : true // allow flash messages
     }));
@@ -23,7 +23,7 @@ module.exports = (app, passport) => {
         failureFlash : true // allow flash messages
       }), (req, res, next) => {
         req.flash('success', 'Welcome!');
-        res.redirect('/questions');
+        res.redirect('/');
       }
     );
 

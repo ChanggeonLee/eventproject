@@ -62,7 +62,6 @@ router.post('/',catchErrors(async (req,res,next)=>{
     return res.redirect('back');
   }
   var user = await User.findOne({email: req.body.email});
-  console.log('USER???', user);
   // 이미 사용하고있는 사용자일 경우에도 에러처리를 한다.
   if (user) {
     req.flash('danger', 'Email address already exists.');
