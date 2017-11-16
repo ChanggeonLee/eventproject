@@ -1,12 +1,26 @@
 extends layout
 
 block content
-    .col-12.mx-auto
-        .card.border-dark.mb-3(style='max-width: 20rem;')
-                .card-header.text-center SIGNIN
-                |   
-                .card-body.text-dark
-                    h4.card-title Dark card title
-                    |     
-                    p.card-text
-                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+     .container
+        .clearfix
+            form.form-signin(action='/signin', method='POST')
+                h3.form-signin-heading Signin
+                label.sr-only(for='email') Email address
+                input(
+                    type='email', id='email', name='email', class='form-control', 
+                    placeholder='Email address', required, autofocus
+                )
+                label.sr-only(for='password') Password
+                input(
+                    type='password', id='password', name='password', class='form-control', 
+                    placeholder='Password', required, autofocus
+                )
+                button.btn.btn-primary.btn-block(type='submit') Signin
+                hr
+                a.btn.btn-dark.btn-block(href='/auth/facebook')
+                    i.fa.fa-facebook.fa-lg
+                    | &nbsp;
+                    | Signin with Facebook
+
+                div.sub 
+                    a(href='/users/new') Signup
