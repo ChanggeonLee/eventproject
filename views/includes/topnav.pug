@@ -1,20 +1,20 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.col-12
-    a.navbar-brand.col-9(href='#') EVENT
-    |   
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    h3
+        a.topnavtitle(href='/') EVENT
+    button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown", aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
         span.navbar-toggler-icon
-    |   
-    #navbarSupportedContent.collapse.navbar-collapse.col-3
-        ul.navbar-nav.mr-auto.col-12
-            li.nav-item
-                a.nav-link(href='#') HELP
+    .collapse.navbar-collapse#navbarNavDropdown
+        ul.navbar-nav.ml-auto
+            li.nav-item.border.border-top-0.border-bottom-0
+                a.nav-link.m-2(href='#') BROWSE EVENTS
+            li.nav-item.border.border-top-0.border-bottom-0
+                a.nav-link.m-2(href='#') HELP
             if (!currentUser)
-                li.nav-item
-                    a.nav-link(href='/signin') SIGNIN
+                li.nav-item.border.border-top-0.border-bottom-0
+                    a.nav-link.m-2(href='/signin') SIGNIN
             else
-                li.nav-item
-                    a.nav-link(href='#') SIGNOUT
-                li.nav-item
-                    a.nav-link(href='#')   MYPAGE
-            li.nav-item
-                a.nav-link(href='#') CREATE EVENT
+                //- 로그인 후 마이페이지 드롭 박스
+                li.nav-item.border.border-top-0.border-bottom-0
+                    a.nav-link.m-2(href='#') 
+            li.nav-item.border.border-top-0.border-bottom-0
+                a.nav-link.m-2.text-primary(href='#') CREATE EVENT
