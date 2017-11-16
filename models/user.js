@@ -7,7 +7,7 @@ var schema = new Schema({
   email: {type: String, required: true, index: true, unique: true, trim: true},
   password: {type: String},
   facebook: {id: String, token: String, photo: String},
-  kakaotalk: {id: String, token: String, photo: String},
+  kakao: {id: String, token: String, photo: String},
   tickets:[],
   saves: [],
   createdAt: {type: Date, default: Date.now}
