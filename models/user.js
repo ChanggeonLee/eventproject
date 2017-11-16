@@ -8,6 +8,8 @@ var schema = new Schema({
   password: {type: String},
   facebook: {id: String, token: String, photo: String},
   kakaotalk: {id: String, token: String, photo: String},
+  tickets:[],
+  saves: [],
   createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},
@@ -18,6 +20,10 @@ schema.methods.generateHash = function(password) {
   return bcrypt.hash(password, 10); // return Promise
 };
 
+schema.methods.con = function(){
+  console.log("씨발");
+};
+
 schema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password); // return Promise
 };
@@ -25,3 +31,4 @@ schema.methods.validatePassword = function(password) {
 var User = mongoose.model('User', schema);
 
 module.exports = User;
+
