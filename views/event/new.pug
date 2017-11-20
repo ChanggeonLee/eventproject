@@ -19,23 +19,23 @@ block content
                 label(for='start_time') 시작시간
                 .row
                     .col
-                        input.form-control(type='start_time', id='start_time', name='start_time', placeholder='start_time')
+                        input.form-control(type='start_time_date', id='start_time_date', name='start_time_date', placeholder='start_time_date')
                     .col
-                        input.form-control(type='start_time', id='start_time', name='start_time', placeholder='start_time')
+                        input.form-control(type='start_time_time', id='start_time_time', name='start_time_time', placeholder='start_time_time')
             
             //- 종료시간
             .form-group
                 label(for='end_time') 종료시간
                 .row
                     .col
-                        input.form-control(type='start_time', id='start_time', name='start_time', placeholder='start_time')
+                        input.form-control(type='end_time_date', id='end_time_date', name='end_time_date', placeholder='end_time_date')
                     .col
-                        input.form-control(type='start_time', id='start_time', name='start_time', placeholder='start_time')
+                        input.form-control(type='end_time_time', id='end_time_time', name='end_time_time', placeholder='end_time_time')
             
             //- 사진업로드
             .form-group
                 label(for='attendance_max') 이벤트 사진
-                input.col-10(multiple="multiple" ,type="file" ,name="images[]")
+                input.col-10(multiple="multiple" ,type="file" ,name="images")
             
             //- WYSIWYG
             //- CK editor

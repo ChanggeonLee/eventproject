@@ -19,12 +19,15 @@ var schema = new Schema({
     event_type: {type: String, required: true, trim: true},
     event_field: {type: String, required: true, trim: true},
     ticket: {
+        name: {type: String, required: true, trim: true },
         free: {type: Boolean, required: true, trim: true ,default: true},
         cost: {type: String, required: true, trim: true }
     },
     attendance_max: {type:Number, required: true, trim: true},
-    attendance: {type:Number, required: true, trim: true},
+    attendance: {type:Number, required: true, trim: true, default: 0},
     // 이미지가 들어가는 스키마가 필요함
+    img_url:[String],
+    img_key:[String],
     // 설문에 필요한 스키마를 추가할 거임
     createdAt: {type: Date, default: Date.now}
 }, {
