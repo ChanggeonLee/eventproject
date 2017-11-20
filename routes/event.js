@@ -18,7 +18,11 @@ router.get('/', catchErrors( async(req, res, next) => {
 }));
 
 router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
-    res.render('event/new');
+  res.render('event/new');
+}));
+
+router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
+  console.log(req.body);
 }));
 
 module.exports = router;

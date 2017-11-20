@@ -5,16 +5,22 @@ var schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     name: {type: String, required: true, trim: true},
     locate: {type: String, required: true, trim: true},
-    start_time: {type: String, required: true, trim: true},
-    end_time: {type: String, required: true, trim: true},
+    start_time: {
+        date:{type: String, required: true, trim: true},
+        time:{type: String, required: true, trim: true}
+    },
+    end_time: {
+        date:{type: String, required: true, trim: true},
+        time:{type: String, required: true, trim: true}
+    },
     info: {type: String, required: true, trim: true},
     organize: {type: String, required: true, trim: true},
     organize_info: {type: String, required: true, trim: true},
     event_type: {type: String, required: true, trim: true},
     event_field: {type: String, required: true, trim: true},
     ticket: {
-        free: {type: Boolean, required: true, trim: true},
-        cost: {type: String, required: true, trim: true}
+        free: {type: Boolean, required: true, trim: true ,default: true},
+        cost: {type: String, required: true, trim: true }
     },
     attendance_max: {type:Number, required: true, trim: true},
     attendance: {type:Number, required: true, trim: true},
