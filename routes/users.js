@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var catchErrors = require('../lib/async-error');
 var User = require('../models/user');
+var nodemailer = require('nodemailer');
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -56,7 +57,66 @@ router.get('/new',catchErrors((req,res,next)=>{
 // 회원 정보 수정 페이지
 router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
+  if(!user.password){
+    // facebook user는 못바꾼다.
+    // res.flash('danger' , 'facebook or kakao can\'t change');
+    console.log('facebook or kakao id');
+    return res.redirect('back');
+  }
   res.render('users/edit',{user:user});
+}));
+
+router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
+  user = await User.findById(req.params.id);
+  
+  if(!user){
+    res.flash('danger' , 'no users');
+    return res.redirect('back');
+  }
+  
+  user.name = req.body.name;
+  user.email = req.body.email;
+  
+  if( !await user.validatePassword(req.body.now_password)){
+    res.flash('danger' , 'not match password');
+    return res.redirect('back');
+  }else{
+    console.log("new=password");
+    user.password = await user.generateHash(req.body.new_password);
+  }
+
+  await user.save();
+  req.flash('success', 'Registered successfully. Please sign in.');
+
+  // 재설정 되었다고 이메일을 보내줘야된다.
+  var transporter = nodemailer.createTransport({
+    service: 'naver',
+    auth: {
+      user: process.env.N_ID,
+      pass: process.env.N_PW
+    }
+  });
+
+  var mailOptions = {
+    from: process.env.N_ID,
+    to: user.email,
+    subject: 'your password Changed!!',
+    text: 'from.Event\n your password Changed!!'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+      console.log("에러난다 똥땅아");
+      console.log(process.env.N_ID);
+      console.log(process.env.N_PW);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  // 홈 화면으로 리다이렉트 해준다~
+  res.redirect('/');
+
 }));
 
 // 회원 가입 정보를 디비에 저장한다
