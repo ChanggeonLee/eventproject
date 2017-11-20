@@ -57,12 +57,6 @@ router.get('/new',catchErrors((req,res,next)=>{
 // 회원 정보 수정 페이지
 router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
-  if(!user.password){
-    // facebook user는 못바꾼다.
-    // res.flash('danger' , 'facebook or kakao can\'t change');
-    console.log('facebook or kakao id');
-    return res.redirect('back');
-  }
   res.render('users/edit',{user:user});
 }));
 
@@ -117,6 +111,12 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/');
 
+}));
+
+router.delete('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
+  await User.findOneAndRemove(req.params.id);
+  console.log("delete user id");
+  res.redirect('/signout');
 }));
 
 // 회원 가입 정보를 디비에 저장한다
