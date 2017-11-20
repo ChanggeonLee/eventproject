@@ -88,7 +88,7 @@ app.use(function(req, res, next) {
 // Router
 app.use('/', index);
 app.use('/users', users);
-// app.use('/event',event);
+app.use('/event',event);
 // auth
 require('./routes/auth')(app, passport);
 
