@@ -47,8 +47,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+// 회원 가입 페이지
 router.get('/new',catchErrors((req,res,next)=>{
   res.render('users/new');
+}));
+
+
+// 회원 정보 수정 페이지
+router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
+  user = await User.findById(req.params.id);
+  res.render('users/edit',{user:user});
 }));
 
 // 회원 가입 정보를 디비에 저장한다
@@ -79,6 +87,7 @@ router.post('/',catchErrors(async (req,res,next)=>{
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/');
 }));
+
 module.exports = router;
 
 
