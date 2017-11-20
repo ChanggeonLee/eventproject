@@ -2,7 +2,7 @@ extends ../layout
 
 block content
     .container
-        form.col-10.mx-auto(action='/users/',method='POST')
+        form.col-10.mx-auto(action=`/users/${currentUser._id}?_method=PUT`,method='POST')
             .form-group
                 label(for='name') Name
                 input.form-control(type='text', id='name', name='name', placeholder='Your name' , value=user.name)
@@ -10,7 +10,7 @@ block content
                 label(for='email') Email address
                 input.form-control(type='email', id='email', name='email', placeholder='Email' , value=user.email)
             .form-group
-                label(for=now_password) Now Password
+                label(for='now_password') Now Password
                 input.form-control(type='password', id='now_password', name='now_password', placeholder='Password')
             .form-group
                 label(for='new_password') New Password
