@@ -1,3 +1,37 @@
 extends layout
 
 block content
+
+.form-group
+    label(for='name') Name
+    input.form-control(type='text', id='name', name='name', placeholder='evnet name')
+.form-group
+    label(for='locate') 장소 지도가 들어야된다
+    input.form-control(type='locate', id='locate', name='locate', placeholder='locate')
+.form-group
+    label(for='start_time') 시작시간
+    input.form-control(type='start_time', id='start_time', name='start_time', placeholder='start_time')
+.form-group
+    label(for='end_time') 종료시간
+    input.form-control(type='end_time', id='end_time', name='end_time', placeholder='end_time')
+.form-group
+    label(for='info') 상세설명
+    input.form-control(type='info', id='info', name='info', placeholder='info')
+.form-group
+    label(for='organize') 등록 조직
+    input.form-control(type='organize', id='organize', name='organize', placeholder='organize')
+.form-group
+    label(for='organize_info') 등록 조직 설명
+    input.form-control(type='organize_info', id='organize_info', name='organize_info', placeholder='organize_info')
+.form-group
+    label(for='event_type') 이벤트 종류 
+//-     input.form-control(type='event_type', id='event_type', name='event_type', placeholder='event_type')    
+.form-group
+    label(for='event_field') 이벤트 분야
+//-     input.form-control(type='event_field', id='event_field', name='event_field', placeholder='event_field')   
+.form-group
+    label(for='ticket') 무료인지 유료인지 수정 필요
+//-     input.form-control(type='ticket', id='ticket', name='ticket', placeholder='ticket')    
+.form-group
+    label(for='attendance_max') 최대인원
+    input.form-control(type='attendance_max', id='attendance_max', name='attendance_max', placeholder='attendance_max')

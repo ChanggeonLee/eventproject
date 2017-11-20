@@ -9,7 +9,7 @@ var schema = new Schema({
     end_time: {type: String, required: true, trim: true},
     info: {type: String, required: true, trim: true},
     organize: {type: String, required: true, trim: true},
-    organize_time: {type: String, required: true, trim: true},
+    organize_info: {type: String, required: true, trim: true},
     event_type: {type: String, required: true, trim: true},
     event_field: {type: String, required: true, trim: true},
     ticket: {
