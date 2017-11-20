@@ -10,7 +10,9 @@ var schema = new Schema({
   kakao: {id: String, token: String, photo: String},
   tickets:[],
   saves: [],
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  // 관리자 권한
+  rootuser: {type: Boolean, default: false}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

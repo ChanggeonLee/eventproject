@@ -58,6 +58,19 @@ router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
   res.render('users/edit',{user:user});
 }));
 
+// manager
+router.get('/management/:id',needAuth ,catchErrors(async (req, res, next)=> {
+  user = await User.findById(req.params.id);
+  if(!user.rootuser){
+    // 관리자 권한없음
+    req.flash('danger', '관리자 권한이 없습니다.');
+    res.redirect('back');
+  }else{
+    req.flash('success', '관리자 페이지에 오신걸 환영합니다.');
+    res.render('users/manager',{user:user});
+  }
+}));
+
 // 회원 정보 수정 수행
 router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
@@ -146,6 +159,8 @@ router.post('/',catchErrors(async (req,res,next)=>{
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/');
 }));
+
+
 
 module.exports = router;
 
