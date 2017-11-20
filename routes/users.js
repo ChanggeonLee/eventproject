@@ -66,8 +66,10 @@ router.get('/management/:id',needAuth ,catchErrors(async (req, res, next)=> {
     req.flash('danger', '관리자 권한이 없습니다.');
     res.redirect('back');
   }else{
+    users = await User.find();
+    console.log(users);
     req.flash('success', '관리자 페이지에 오신걸 환영합니다.');
-    res.render('users/manager',{user:user});
+    res.render('users/manager',{users:users});
   }
 }));
 
@@ -126,9 +128,17 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
 }));
 
 router.delete('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
-  await User.findOneAndRemove(req.params.id);
-  console.log("delete user id");
-  res.redirect('/signout');
+  
+  if(req.user.rootuser){
+    console.log("관리자 삭제");
+    await User.findOneAndRemove(req.params.id);
+    res.redirect('back');
+  }else{
+    console.log("회원탈퇴");
+    await User.findOneAndRemove(req.params.id);
+    res.redirect('/signout');
+  }
+  
 }));
 
 // 회원 가입 정보를 디비에 저장한다
