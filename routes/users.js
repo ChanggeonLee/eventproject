@@ -42,7 +42,6 @@ function validateForm(form, options) {
   return null;
 }
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -53,13 +52,13 @@ router.get('/new',catchErrors((req,res,next)=>{
   res.render('users/new');
 }));
 
-
 // 회원 정보 수정 페이지
 router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
   res.render('users/edit',{user:user});
 }));
 
+// 회원 정보 수정 수행
 router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
   
@@ -71,17 +70,20 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   user.name = req.body.name;
   user.email = req.body.email;
   
+  if( !user.password ){
+    res.flash('danger' , 'facebook , kakao 로그인 사용자는 개인정보 변경을 할 수 없습니다.');
+    return res.redirect('back');
+  }
+
   if( !await user.validatePassword(req.body.now_password)){
-    res.flash('danger' , 'not match password');
+    req.flash('danger' , 'not match password');
     return res.redirect('back');
   }else{
-    console.log("new=password");
     user.password = await user.generateHash(req.body.new_password);
   }
 
   await user.save();
   req.flash('success', 'Registered successfully. Please sign in.');
-
   // 재설정 되었다고 이메일을 보내줘야된다.
   var transporter = nodemailer.createTransport({
     service: 'naver',
@@ -101,15 +103,12 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
-      console.log("에러난다 똥땅아");
-      console.log(process.env.N_ID);
-      console.log(process.env.N_PW);
     } else {
       console.log('Email sent: ' + info.response);
     }
   });
   // 홈 화면으로 리다이렉트 해준다~
-  res.redirect('/');
+  res.redirect('/signout');
 
 }));
 
