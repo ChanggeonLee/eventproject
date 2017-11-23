@@ -42,7 +42,7 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   // 기본 데이터 설정
   event = new Event({
     author: req.user.id,
-    name: req.body.name,
+    title: req.body.title,
     locate: req.body.locate,
     info: req.body.info,
     organize: req.body.organize,
