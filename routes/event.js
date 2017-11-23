@@ -37,6 +37,13 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
   res.render('event/new');
 }));
 
+router.get('/:id' , catchErrors(async (req, res, next)=> {
+  const event = await Event.findById(req.params.id).populate('author');
+  event.numReads++;
+  await event.save();
+  res.render('event/show',{event : event});
+}));
+
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   
   // 기본 데이터 설정

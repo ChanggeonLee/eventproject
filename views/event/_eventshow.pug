@@ -1,0 +1,50 @@
+.content
+  label(for='locate') 이벤트 위치
+  p=event.locate
+
+  label(for='start_time') 시작 시간
+  p=event.start_time.date
+  p=event.start_time.time
+  
+  label(for='end_time') 종료 시간
+  p=event.end_time.date
+  p=event.end_time.time
+
+.content
+  p=event.info
+
+  label(for='organize') 등록 조직
+  p=event.organize
+  
+  label(for='organize_info') 조직 설명
+  p=event.organize_info
+  
+  label(for='event_type') 이벤트 종류
+  p=event.event_type
+
+  label(for='event_field') 이벤트 분야
+  p=event.event_field
+
+  label(for='event_type') 티켓
+  if(event.ticket.free)
+    |free
+  else
+    p=event.ticket.name
+    p=event.ticket.cost
+  
+  label(for='attendance_max') 최대 참석자
+  p=event.attendance_max
+
+.row
+  .col-sm
+    .numbers.
+        #[span.number.num-votes= event.numAttendance] attendance,
+        #[span.number.num-votes= event.numLikes] likes,
+        #[span.number.num-answers= event.numAnswers] answers,
+        #[span.number.num-views= event.numReads] reads
+  .col-sm
+    .author
+      | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
+      if event.author
+        | 
+        | by #[a(href=`/users/${event.author.id}`)= event.author.name] 
