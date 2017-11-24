@@ -2,7 +2,7 @@ const express = require('express');
 const catchErrors = require('../../lib/async-error');
 const Event = require('../../models/event');
 const User = require('../../models/user');
-const LikeLog = require('../../models/like-log'); 
+const JoinLog = require('../../models/join-log') 
 const router = express.Router();
 
 router.use(catchErrors(async (req, res, next) => {
@@ -13,20 +13,20 @@ router.use(catchErrors(async (req, res, next) => {
   }
 }));
 
-router.use('/event', require('./event'));
+// router.use('/event', require('./event'));
 
 // Like for event
-router.post('/event/:id/like', catchErrors(async (req, res, next) => {
-  const event = await event.findById(req.params.id);
+router.post('/event/:id/join', catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
-  var likeLog = await LikeLog.findOne({author: req.user._id, event: event._id});
-  if (!likeLog) {
+  var joinLog = await JoinLog.findOne({author: req.user._id, event: event._id});
+  if (!joinLog) {
     event.numLikes++;
     await Promise.all([
       event.save(),
-      LikeLog.create({author: req.user._id, event: event._id})
+      JoinLog.create({author: req.user._id, event: event._id})
     ]);
   }
   return res.json(event);
