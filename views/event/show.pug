@@ -7,19 +7,19 @@ block content
         .event.show
             include _eventshow
 
-        .buttons
-            if currentUser
-                button.btn.btn-primary.event-join-btn(data-id=event.id) 
-                    span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-                    span #[i.fa.fa-thumbs-up] Join
-                button.btn.btn-primary.event-like-btn(data-id=event.id) 
-                    span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-                    span #[i.fa.fa-thumbs-up] Like
-                //- if evnet.author && evnet.author.id == currentUser.id
-                    | 
-                    a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
-                    | 
-                    a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
+            .buttons
+                if currentUser
+                    button.btn.btn-primary.event-join-btn(data-id=event.id) 
+                        span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+                        span #[i.fa.fa-thumbs-up] Join
+                    button.btn.btn-primary.event-like-btn(data-id=event.id) 
+                        span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+                        span #[i.fa.fa-thumbs-up] Like
+                    if event.author && event.author.id == currentUser.id
+                        | 
+                        a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
+                        | 
+                        a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
       
         //- if event.numAnswers > 0
         //-     hr
