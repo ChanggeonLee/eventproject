@@ -1,0 +1,131 @@
+//- 이벤트 이름
+.form-group
+    label(for='title') 이벤트 이름
+    input.form-control(type='text', id='title', name='title', placeholder="What's your event title?" , value=event.title)
+
+//- 장소
+.form-group
+    label(for='locate') 장소 (지도가 들어야된다)
+    input.form-control(type='locate', id='locate', name='locate', placeholder='locate' ,value=event.locat)
+
+//- 시작시간
+.form-group
+    label(for='start_time') 시작시간
+    .row
+        .col
+            input.form-control(type='start_time_date', id='start_time_date', name='start_time_date', placeholder='start_time_date' ,value=event.start_time.date)
+        .col
+            input.form-control(type='start_time_time', id='start_time_time', name='start_time_time', placeholder='start_time_time' ,value=event.start_time.time)
+
+//- 종료시간
+.form-group
+    label(for='end_time') 종료시간
+    .row
+        .col
+            input.form-control(type='end_time_date', id='end_time_date', name='end_time_date', placeholder='end_time_date' ,value=event.end_time.date)
+        .col
+            input.form-control(type='end_time_time', id='end_time_time', name='end_time_time', placeholder='end_time_time' ,value=event.end_time.time)
+
+//- 사진업로드
+.form-group
+    label(for='attendance_max') 이벤트 사진
+    input.col-10(multiple="multiple" ,type="file" ,name="images" )
+
+
+//- WYSIWYG
+//- CK editor
+//- 상세설명
+.form-group
+    label(for='info') 상세설명
+    textarea#editor(name="info" value=event.info)
+        |
+    script.
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+
+//- 등록 조직
+.form-group
+    label(for='organize') 등록 조직
+    input.form-control(type='organize', id='organize', name='organize', placeholder='organize' value=event.organize)
+
+//- 등록 조직 설명
+.form-group
+    label(for='organize_info') 등록 조직 설명
+    textarea#organize_info(name="organize_info" value=event.organize_info)
+        |
+    script.
+        ClassicEditor
+            .create( document.querySelector( '#organize_info' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    
+//- 이벤트 종류
+.form-group
+    label(for='event_type') 이벤트 종류 
+    select.custom-select(name='event_type' value=event.event_type)
+        option(selected='') 이벤트 유형 선택  
+        option(value='캠프') 캠프
+        option(value='수업') 수업
+        option(value='콘서트') 콘서트
+        option(value='회의') 회의
+        option(value='협약') 협약
+        option(value='축제') 축제
+        option(value='파티') 파티
+        option(value='세미나') 세미나
+        option(value='전시회') 전시회
+
+//- 이벤트 분야
+.form-group
+    label(for='event_field') 이벤트 분야
+    select.custom-select(name='event_field' value=event.event_field)
+        option(selected='') 주제 선택 
+        option(value='자동차') 자동차
+        option(value='비즈니스') 비즈니스
+        option(value='지역 사회 및 문화') 지역 사회 및 문화
+        option(value='패션') 패션
+        option(value='가족') 가족
+        option(value='음식') 음식
+        option(value='영화') 영화
+        option(value='건강') 건강
+        option(value='취미') 취미
+        option(value='음악') 음악
+        option(value='종교') 종교
+        option(value='과학') 과학
+        option(value='스포츠') 스포츠
+
+//- 티켓
+.form-group
+    label(for='ticket') Tickets
+    p
+        a.btn.btn-primary(data-toggle='collapse', href='#Free_Tickets', aria-expanded='false', aria-controls='Free_Tickets')
+            | Free Tickets
+        |   
+        a.btn.btn-primary(data-toggle='collapse', href='#Paid_Tickets', aria-expanded='false', aria-controls='Paid_Tickets')
+            | Paid Tickets
+
+    #Free_Tickets.collapse
+        .card.card-body
+            | Free Tickets
+    
+    #Paid_Tickets.collapse
+        .row
+            .col
+                |ticket name
+                input.form-control(type='ticket_name', id='ticket_name', name='ticket_name', placeholder='ticket_name' ,value=event.ticket.name)
+            .col
+                |ticket price
+                input.form-control(type='ticket_price', id='ticket_price', name='ticket_price', placeholder='ticket_price' ,value=event.ticket.cost)
+
+//-  최대인원 
+.form-group
+    label(for='attendance_max') 최대인원
+    input.form-control(type='attendance_max', id='attendance_max', name='attendance_max', placeholder='attendance_max' , value=event.attendance_max)
+
+//-  설문
+.form-group
+    label(for='attendance_max') 설문(바꿔야됨)
+    //- input.form-control(type='attendance_max', id='attendance_max', name='attendance_max', placeholder='attendance_max')

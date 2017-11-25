@@ -34,10 +34,14 @@ router.get('/', catchErrors( async(req, res, next) => {
   
 }));
 
-
 // new event page
 router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
-  res.render('event/new');
+  res.render('event/new',{
+    event:{
+      start_time:{},
+      end_time:{},
+      ticket: {}
+  }});
 }));
 
 // show event page
@@ -49,9 +53,46 @@ router.get('/:id' , catchErrors(async (req, res, next)=> {
 }));
 
 // edit event page
+router.get('/:id/edit' , catchErrors(async (req , res, next)=> {
+  const event = await Event.findById(req.params.id);
+  res.render('event/edit' ,{ event : event});
+}));
 
 // change event page
+router.put('/:id/', catchErrors(async (req, res, next)=>{
+  var event = await Event.findById(req.params.id);
+  // 기본 데이터 설정
+  event.title = req.body.title;
+  event.locate = req.body.locate;
+  event.info = req.body.info;
+  event.organize = req.body.organize;
+  event.organize_info = req.body.organize_info;
+  event.event_type = req.body.event_type;
+  event.event_field = req.body.event_field;
+  event.attendance_max = req.body.attendance_max;
 
+  // 시작 시간 끝시간 설정
+  event.start_time.date = req.body.start_time_date;
+  event.start_time.time = req.body.start_time_time;
+  event.end_time.date = req.body.end_time_date;
+  event.end_time.time = req.body.end_time_date;
+  
+  // 티켓 요금 설정
+  if(req.body.ticket_name){
+    // 유료 티켓
+    event.ticket.free = false;
+    event.ticket.name = req.body.ticket_name;
+    event.ticket.cost = req.body.ticket_price
+  }
+
+  // 이미지 저장
+  // 설문
+  await event.save();
+
+  req.flash('success', '이벤트 수정 완료~');
+
+  res.redirect('/');
+}));
 // delete event page
 
 // create new event 
