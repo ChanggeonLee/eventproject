@@ -21,7 +21,15 @@ block content
                         a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
                         | 
                         a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
-      
+            
+                        button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
+                            | 참가자 명단
+                        #collapseExample.collapse
+                            .card.card-body
+                                each attendant in attendants   
+                                    .card.card-body                    
+                                        p=attendant.author.name
+                                        p=attendant.createdAt
         //- if event.numAnswers > 0
         //-     hr
         //-     h3 #{event.numAnswers} Answer(s)

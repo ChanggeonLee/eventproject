@@ -3,6 +3,7 @@ const router = express.Router();
 const catchErrors = require('../lib/async-error');
 var Event = require('../models/event');
 var User = require('../models/user');
+const JoinLog = require('../models/join-log')
 
 function needAuth(req, res, next) {
     if (req.isAuthenticated()) {
@@ -47,9 +48,10 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
 // show event page
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
+  const attendants = await JoinLog.find({event:req.params.id}).populate('author');
   event.numReads++;
   await event.save();
-  res.render('event/show',{event : event});
+  res.render('event/show',{event : event , attendants : attendants});
 }));
 
 // edit event page
