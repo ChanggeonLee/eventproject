@@ -13,6 +13,7 @@ function needAuth(req, res, next) {
     }
 }
 
+// event index page
 router.get('/', catchErrors( async(req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -33,10 +34,13 @@ router.get('/', catchErrors( async(req, res, next) => {
   
 }));
 
+
+// new event page
 router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
   res.render('event/new');
 }));
 
+// show event page
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
   event.numReads++;
@@ -44,6 +48,13 @@ router.get('/:id' , catchErrors(async (req, res, next)=> {
   res.render('event/show',{event : event});
 }));
 
+// edit event page
+
+// change event page
+
+// delete event page
+
+// create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   
   // 기본 데이터 설정
