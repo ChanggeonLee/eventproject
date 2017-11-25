@@ -93,7 +93,12 @@ router.put('/:id/', catchErrors(async (req, res, next)=>{
 
   res.redirect('/');
 }));
+
 // delete event page
+router.delete('/:id/', catchErrors(async (req, res, next)=> {
+  const event = await Event.findOneAndRemove(req.params.id);
+  res.redirect('/event/');
+}));
 
 // create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
