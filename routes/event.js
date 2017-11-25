@@ -38,7 +38,7 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
 }));
 
 router.get('/:id' , catchErrors(async (req, res, next)=> {
-  const event = await Event.findById(req.params.id).populate('User');
+  const event = await Event.findById(req.params.id).populate('author');
   event.numReads++;
   await event.save();
   res.render('event/show',{event : event});

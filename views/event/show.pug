@@ -15,6 +15,11 @@ block content
                     button.btn.btn-primary.event-like-btn(data-id=event.id) 
                         span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
                         span #[i.fa.fa-thumbs-up] Like
+                    
+                    //- p=event.author
+                    //- p=event.author.id
+                    //- p=currentUser.id
+
                     if event.author && event.author.id == currentUser.id
                         | 
                         a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit

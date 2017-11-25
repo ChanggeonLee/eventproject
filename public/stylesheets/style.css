@@ -66,4 +66,19 @@
   .main_search_min {
     display: none; } }
 
+.event-like-btn, .event-join-btn {
+  cursor: pointer; }
+  .event-like-btn .for-loading, .event-join-btn .for-loading {
+    display: none; }
+  .event-like-btn.loading, .event-join-btn.loading {
+    filter: opacity(30%);
+    cursor: wait; }
+    .event-like-btn.loading > span, .event-join-btn.loading > span {
+      display: none; }
+    .event-like-btn.loading .for-loading, .event-join-btn.loading .for-loading {
+      display: inline-block; }
+  .event-like-btn.disabled, .event-join-btn.disabled {
+    color: #bbb;
+    cursor: default; }
+
 /*# sourceMappingURL=style.css.map */

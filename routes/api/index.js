@@ -14,7 +14,7 @@ router.use(catchErrors(async (req, res, next) => {
   }
 }));
 
-// router.use('/event', require('./event'));
+router.use('/event', require('./event'));
 
 // Join for Event
 router.post('/event/:id/join', catchErrors(async (req, res, next) => {
