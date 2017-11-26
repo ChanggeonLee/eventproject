@@ -6,6 +6,7 @@ var schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     title: {type: String, required: true, trim: true},
     locate: {type: String, required: true, trim: true},
+    detail_address: {type: String, required: true, trim: true},
     start_time: {
         date:{type: String, required: true, trim: true},
         time:{type: String, required: true, trim: true}

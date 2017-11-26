@@ -110,6 +110,7 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
     author: req.user.id,
     title: req.body.title,
     locate: req.body.locate,
+    detail_address: req.body.detail_address,
     info: req.body.info,
     organize: req.body.organize,
     organize_info: req.body.organize_info,
