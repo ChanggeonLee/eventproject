@@ -114,10 +114,10 @@
             input.form-control(type='end_time_time', id='end_time_time', name='end_time_time', placeholder='end_time_time' ,value=event.end_time.time)
 
 //- 사진업로드
-.form-group
+.form-group#file-section
     label(for="img")
     input#file.form-control(type="file" , multiple="multiple")
-    input#url.form-control(type="text", readonly="readonly", name="img", value=event.img )
+    //- input#url.form-control(type="text", readonly="readonly", name="img[]", value=event.img )
     img#preview.img-fluid(src="https://dummyimage.com/200x200/ccc/fff")
 
 script.
@@ -141,7 +141,8 @@ script.
                             contentType: file.type,
                             success: function() {
                                 $("#preview").attr("src", resp.url).show();
-                                $("#url").val(resp.url);
+                                $("#file-section").append("<input name='img[]' value='" + resp.url + "'>");
+                                //- $("#url").val(resp.url);
                             }
                         });
                     });

@@ -3,7 +3,10 @@ const router = express.Router();
 const catchErrors = require('../lib/async-error');
 var Event = require('../models/event');
 var User = require('../models/user');
-const JoinLog = require('../models/join-log')
+const JoinLog = require('../models/join-log');
+var bodyParser = require('body-parser');
+
+router.use(bodyParser.urlencoded({ extended: true }));
 
 function needAuth(req, res, next) {
     if (req.isAuthenticated()) {
@@ -104,7 +107,6 @@ router.delete('/:id/', catchErrors(async (req, res, next)=> {
 
 // create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
-  
   // 기본 데이터 설정
   event = new Event({
     author: req.user.id,
@@ -119,6 +121,8 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
     attendance_max: req.body.attendance_max,
   });
 
+  event.img = req.body.img;
+
   // 시작 시간 끝시간 설정
   event.start_time.date = req.body.start_time_date;
   event.start_time.time = req.body.start_time_time;
@@ -132,6 +136,8 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
     event.ticket.name = req.body.ticket_name;
     event.ticket.cost = req.body.ticket_price
   }
+
+  console.log(event);
 
   // 이미지 저장
   // 설문

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
+    // 이미지가 들어가는 스키마가 필요함
     title: {type: String, required: true, trim: true},
     locate: {type: String, required: true, trim: true},
     detail_address: {type: String, required: true, trim: true},
@@ -26,14 +27,12 @@ var schema = new Schema({
         cost: {type: String}
     },
     attendance_max: {type:Number, required: true, trim: true},
-    // 이미지가 들어가는 스키마가 필요함
-    // img_url:[String],
-    // img_key:[String],
     // 좋아요 ,  응답 , 읽은 사람수
     numAttendance: {type:Number, default: 0},
     numLikes: {type: Number, default: 0},
     numAnswers: {type: Number, default: 0},
     numReads: {type: Number, default: 0},
+    img: [String],
     // 설문에 필요한 스키마를 추가할 거임
     createdAt: {type: Date, default: Date.now}
 }, {
