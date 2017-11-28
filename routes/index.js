@@ -39,7 +39,7 @@ router.get('/signin',catchErrors(async(req,res,next) => {
 
 const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
-console.log(process.env.AWS_KEY, process.env.AWS_SECRET);
+console.log(process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY);
 router.get('/s3', function(req, res, next) {
   const s3 = new aws.S3({region: 'ap-northeast-2'});
   const filename = req.query.filename;

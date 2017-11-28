@@ -115,8 +115,40 @@
 
 //- 사진업로드
 .form-group
-    label(for='attendance_max') 이벤트 사진
-    input.col-10(multiple="multiple" ,type="file" ,name="images" )
+    label(for="img")
+    input#file.form-control(type="file" , multiple="multiple")
+    input#url.form-control(type="text", readonly="readonly", name="img", value=event.img )
+    img#preview.img-fluid(src="https://dummyimage.com/200x200/ccc/fff")
+
+script.
+    $(function() {
+        $("#preview").hide();
+        $("#file").change(function() {
+            var files = $("#file")[0].files;
+            for(file of files){
+                if (file) {
+                    var url = "/s3?filename=" + encodeURIComponent(file.name) + 
+                            "&type=" + encodeURIComponent(file.type);
+                    console.log(url);
+                    $.getJSON(url, function(resp) {
+                        console.log(resp.signedRequest);
+                        $.ajax({
+                            url: resp.signedRequest,
+                            method: 'PUT',
+                            data: file,
+                            headers: {'x-amz-acl': 'public-read', 'Content-Type': file.type},
+                            processData: false, 
+                            contentType: file.type,
+                            success: function() {
+                                $("#preview").attr("src", resp.url).show();
+                                $("#url").val(resp.url);
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    });
 
 
 //- WYSIWYG
