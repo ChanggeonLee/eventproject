@@ -108,6 +108,9 @@ router.delete('/:id/', catchErrors(async (req, res, next)=> {
 // create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   // 기본 데이터 설정
+  console.log(req.body);
+  console.log(req.body.img);
+
   event = new Event({
     author: req.user.id,
     title: req.body.title,
