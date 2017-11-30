@@ -26,7 +26,9 @@ router.get('/', catchErrors( async(req, res, next) => {
   const term = req.query.term;
   if (term) {
     query = {$or: [
-      {title: {'$regex': term, '$options': 'i'}}
+      {title: {'$regex': term, '$options': 'i'}},
+      {locate: {'$regex': term, '$options': 'i'}},
+      {event_field: {'$regex': term, '$options': 'i'}}
     ]};
   }
   const events = await Event.paginate(query, {
