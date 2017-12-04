@@ -3,12 +3,15 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
-  img:[String],
+  event: { type: Schema.Types.ObjectId, ref: 'Event' },
+  position: {type: String},
+  reasons: {type: String},
   createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
 });
-var Img = mongoose.model('Img', schema);
+var Survey = mongoose.model('Survey', schema);
 
-module.exports = Img;
+module.exports = Survey;
+

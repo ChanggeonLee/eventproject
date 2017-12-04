@@ -1,28 +1,28 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    h3
-        a.topnavtitle(href='/') EVENT
-    button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown", aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
-        span.navbar-toggler-icon
-    .collapse.navbar-collapse#navbarNavDropdown
-        ul.navbar-nav.ml-auto
-            li.nav-item.border.border-top-0.border-bottom-0
-                a.nav-link.m-2(href='/event') BROWSE EVENTS
-            li.nav-item.border.border-top-0.border-bottom-0
-                a.nav-link.m-2(href='#') HELP
-            if (!currentUser)
-                li.nav-item.border.border-top-0.border-bottom-0
-                    a.nav-link.m-2(href='/signin') SIGNIN
-            else
-                //- 로그인 후 마이페이지 드롭 박스
-                li.dropdown.border.border-top-0.border-bottom-0
-                    button#dropdownMenuButton.btn.dropdown-toggle.m-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') #{currentUser.name}
-                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                        a.dropdown-item(href='#') Tickets
-                        a.dropdown-item(href=`/users/show/${currentUser._id}`) Profile
-                        a.dropdown-item(href=`/users/management/${currentUser._id}`) management
-                        a.dropdown-item(href='#') Mange Events
-                        a.dropdown-item(href=`/users/setting/${currentUser._id}`) Account Settings
-                        a.dropdown-item(href='/signout') Log out
+  h3
+    a.topnavtitle(href='/') EVENT
+  button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown", aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
+    span.navbar-toggler-icon
+  .collapse.navbar-collapse#navbarNavDropdown
+    ul.navbar-nav.ml-auto
+      li.nav-item.border.border-top-0.border-bottom-0
+        a.nav-link.m-2(href='/event') BROWSE EVENTS
+      li.nav-item.border.border-top-0.border-bottom-0
+        a.nav-link.m-2(href='#') HELP
+      if (!currentUser)
+        li.nav-item.border.border-top-0.border-bottom-0
+          a.nav-link.m-2(href='/signin') SIGNIN
+      else
+        //- 로그인 후 마이페이지 드롭 박스
+        li.dropdown.border.border-top-0.border-bottom-0
+          button#dropdownMenuButton.btn.dropdown-toggle.m-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') #{currentUser.name}
+          .dropdown-menu(aria-labelledby='dropdownMenuButton')
+            a.dropdown-item(href='#') Tickets
+            a.dropdown-item(href=`/users/show/${currentUser._id}`) Profile
+            a.dropdown-item(href=`/users/management/${currentUser._id}`) management
+            a.dropdown-item(href='#') Mange Events
+            a.dropdown-item(href=`/users/setting/${currentUser._id}`) Account Settings
+            a.dropdown-item(href='/signout') Log out
 
-            li.nav-item.border.border-top-0.border-bottom-0
-                a.nav-link.m-2.text-primary(href='/event/newevent') CREATE EVENT
+        li.nav-item.border.border-top-0.border-bottom-0
+          a.nav-link.m-2.text-primary(href='/event/newevent') CREATE EVENT

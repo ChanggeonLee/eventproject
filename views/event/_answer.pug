@@ -16,5 +16,5 @@
       .author
           | answered on #{moment(answer.createdAt).format('YYYY-MM-DD')}
           if answer.author
-          | 
-          | by #[a(href=`/users/${answer.author.id}`)= answer.author.name]
+            | 
+            | by #[a(href=`/users/${answer.author.id}`)= answer.author.name]

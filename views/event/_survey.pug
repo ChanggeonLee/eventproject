@@ -1,0 +1,15 @@
+
+button.btn.btn-primary.btn-survey(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
+  | Survey
+#collapseExample.collapse
+  .card.card-body
+    .container
+        form.col-10.mx-auto(action=`/event/${event.id}/survey`,method='POST')
+          .form-group
+            label(for='position') 소속
+            input.form-control(type='text', id='position', name='position', placeholder="" )
+          .form-group
+            label(for='reasons') 참여 이유
+            input.form-control(type='text', id='reasons', name='reasons', placeholder="")
+          button.btn.registerbutton(type="submit") 등록 
+

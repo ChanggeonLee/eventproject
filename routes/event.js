@@ -8,6 +8,7 @@ const User = require('../models/user');
 const Answer = require('../models/answer');
 const JoinLog = require('../models/join-log');
 const LikeLog = require('../models/like-log');
+const Survey = require('../models/survey');
 
 // body-parser
 const bodyParser = require('body-parser');
@@ -60,7 +61,7 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
   const answers = await Answer.find({event : req.params.id}).populate('author');
-  const attendants = await JoinLog.find({event:req.params.id}).populate('author');
+  const attendants = await JoinLog.find({event : req.params.id}).populate('author');
   event.numReads++;
   await event.save();
   res.render('event/show',{event : event , attendants : attendants , answers : answers});
@@ -158,6 +159,36 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   req.flash('success', '이벤트 생성 완료~');
 
   res.redirect('/');
+}));
+
+// create new survey
+router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
+  const user = req.user;
+  const join_log = await JoinLog.find({author : req.params.id });
+  var survey = await Survey.find({author : req.params.id});
+  
+  // 이벤트에 참여 하였는지 확인
+  if(!join_log){
+    req.flash("danger","이벤트에 참여를 해주세요");
+    res.redirect('back');
+  }
+  
+  // 설문을 하였는지 확인
+  if(survey){
+    req.flash("danger","설문을 이미 완료 되었습니다");
+    res.redirect('back');
+  }
+
+  survey = new Survey({
+    author : user.id,
+    event : req.params.id,  
+    position : req.body.position,
+    resons : req.body.resons
+  });
+
+  await survey.save();
+  req.flash("sucess","설문이 완료되었습니다.");
+  res.redirect('back');
 }));
 
 // create new answer

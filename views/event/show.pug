@@ -12,9 +12,12 @@ block content
           button.btn.btn-primary.event-join-btn(data-id=event.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span #[i.fa.fa-thumbs-up] Join
+      
           button.btn.btn-primary.event-like-btn(data-id=event.id) 
             span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
             span #[i.fa.fa-thumbs-up] Like
+          
+          include _survey
           
           if event.author && event.author.id == currentUser.id
             | 

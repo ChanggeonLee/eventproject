@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-
   .container
     h1.main-title= user.name
           
@@ -17,7 +16,7 @@ block content
         dt.col-sm-3 Facebook
         dd.col-sm-9
           img.img-fluid.rounded-circle(src= user.facebook.photo)
-
+          
     hr
     p
       a.btn.btn-outline-primary(href=`/users/setting/${currentUser._id}`) Edit
