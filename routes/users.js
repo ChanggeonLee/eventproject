@@ -73,6 +73,12 @@ router.get('/management/:id',needAuth ,catchErrors(async (req, res, next)=> {
   }
 }));
 
+// 회원 정보 프로필
+router.get('/show/:id',needAuth, catchErrors(async (req,res,next)=> {
+  const user = await User.findById(req.params.id);
+  res.render('users/show',{user:user});
+}));
+
 // 회원 정보 수정 수행
 router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
@@ -127,6 +133,7 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
 
 }));
 
+// 회원 탈퇴
 router.delete('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   
   if(req.user.rootuser){
