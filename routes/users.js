@@ -1,8 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var catchErrors = require('../lib/async-error');
-var User = require('../models/user');
 var nodemailer = require('nodemailer');
+
+// D.B 모델
+const Event = require('../models/event');
+const User = require('../models/user');
+const Answer = require('../models/answer');
+const JoinLog = require('../models/join-log');
+const LikeLog = require('../models/like-log');
+const Survey = require('../models/survey');
+
 
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -77,6 +85,13 @@ router.get('/management/:id',needAuth ,catchErrors(async (req, res, next)=> {
 router.get('/show/:id',needAuth, catchErrors(async (req,res,next)=> {
   const user = await User.findById(req.params.id);
   res.render('users/show',{user:user});
+}));
+
+// 좋아요 페이지
+router.get('/favorite/:id',needAuth, catchErrors(async (req,res,next) => {
+  const likes = await LikeLog.find({author:req.params.id}).populate('event').populate('author');
+  console.log(likes);
+  res.render('users/favorite', {likes: likes});
 }));
 
 // 회원 정보 수정 수행

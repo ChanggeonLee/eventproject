@@ -1,0 +1,14 @@
+//- .content= event.content
+.row
+    .col-sm
+        .numbers.
+            #[span.number.num-join= like.event.numAttendance] attendance,
+            #[span.number.num-likes= like.event.numLikes] likes,
+            #[span.number.num-answers= like.event.numAnswers] answers,
+            #[span.number.num-reads= like.event.numReads] reads
+    .col-sm
+        .author
+        | asked on #{moment(like.event.createdAt).format('YYYY-MM-DD')}
+        if like.author
+            | 
+            | by #[a(href=`/users/${like.author.id}`)= like.author.name] 
