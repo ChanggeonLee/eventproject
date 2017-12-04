@@ -5,6 +5,14 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     span.navbar-toggler-icon
   .collapse.navbar-collapse#navbarNavDropdown
     ul.navbar-nav.ml-auto
+      li.nav-item.border.border-top-0.border-bottom-0.dropdown
+        button#droprecommend.btn.dropdown-toggle.m-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Recommendation
+        .dropdown-menu(aria-labelledby='droprecommend')
+          a.dropdown-item(href='/event/recommendation?topic=numLikes') 좋아요 추천
+          a.dropdown-item(href='/event/recommendation?topic=numAnswers') 댓글순 추천
+          a.dropdown-item(href='/event/recommendation?topic=numReads') 읽은 사람순 추천
+          a.dropdown-item(href='/event/recommendation?topic=numAttendance') 참가자순 추천
+         
       li.nav-item.border.border-top-0.border-bottom-0
         a.nav-link.m-2(href='/event') BROWSE EVENTS
       li.nav-item.border.border-top-0.border-bottom-0

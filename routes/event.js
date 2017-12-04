@@ -57,6 +57,69 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
   }});
 }));
 
+// get recommendation
+router.get('/recommendation', catchErrors( async(req, res, next)=> {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  var query = {};
+  const term = req.query.term;
+  if (term) {
+    query = {$or: [
+      {title: {'$regex': term, '$options': 'i'}},
+      {locate: {'$regex': term, '$options': 'i'}},
+      {event_field: {'$regex': term, '$options': 'i'}}
+    ]};
+  }
+
+  // 추천 이벤트 후기, 참여자 수, 지역 등
+  var sort = req.query.topic;
+  var title;
+  var event;
+
+  
+  console.log(sort);
+
+  if(sort == 'numLikes'){
+     events = await Event.paginate(query, {
+      sort: {createdAt: -1},
+      sort: {numLikes: -1},
+      populate: 'author', 
+      page: page, limit: limit
+    });
+    title = '좋아요순 추천';
+    console.log(title);
+  }else if(sort == 'numAnswers'){
+     events = await Event.paginate(query, {
+      sort: {createdAt: -1},
+      sort: {numAnswers: -1},
+      populate: 'author', 
+      page: page, limit: limit
+    });
+    title = '댓글순 추천';
+    console.log(title);
+  }else if(sort == 'numReads'){
+     events = await Event.paginate(query, {
+      sort: {createdAt: -1},
+      sort: {numReads: -1},
+      populate: 'author', 
+      page: page, limit: limit
+    });
+    title = '읽은 사람순 추천';
+    console.log(title);
+  }else if(sort == 'numAttendance'){
+     events = await Event.paginate(query, {
+      sort: {createdAt: -1},
+      sort: {numAttendance: -1},
+      populate: 'author', 
+      page: page, limit: limit
+    });
+    title = '참가자순 추천';
+    console.log(title);
+  }
+  res.render('event/recommendation', {events: events, term: term, query: req.query , title : title});
+}));
+
 // show event page
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');

@@ -1,0 +1,11 @@
+if events.total <= 0 
+  .alert.alert-info No events available yet
+else
+  .events
+    each event in events.docs
+      .event
+        h3
+          a.title(href=`/event/${event.id}`)= event.title
+        include _event
+
+  +paginate(events, '/event', query)
