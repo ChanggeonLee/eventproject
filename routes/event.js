@@ -1,13 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const catchErrors = require('../lib/async-error');
-var Event = require('../models/event');
-var User = require('../models/user');
-const JoinLog = require('../models/join-log');
-var bodyParser = require('body-parser');
 
+// D.B models require
+const Event = require('../models/event');
+const User = require('../models/user');
+const Answer = require('../models/answer');
+const JoinLog = require('../models/join-log');
+const LikeLog = require('../models/like-log');
+
+// body-parser
+const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 
+// Check auth
 function needAuth(req, res, next) {
     if (req.isAuthenticated()) {
       next();
@@ -53,10 +59,11 @@ router.get('/newevent', needAuth , catchErrors( async(req, res, next)=> {
 // show event page
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
+  const answers = await Answer.find({event : req.params.id}).populate('author');
   const attendants = await JoinLog.find({event:req.params.id}).populate('author');
   event.numReads++;
   await event.save();
-  res.render('event/show',{event : event , attendants : attendants});
+  res.render('event/show',{event : event , attendants : attendants , answers : answers});
 }));
 
 // edit event page
@@ -152,5 +159,29 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
 
   res.redirect('/');
 }));
+
+// create new answer
+router.post('/:id/answer', needAuth , catchErrors( async(req, res, next)=> {
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+
+  if (!event) {
+    req.flash('danger', '이벤트가 없습니다~');
+    return res.redirect('/');
+  }
+
+  var answer = new Answer({
+    author: user._id,
+    event: event._id,
+    content: req.body.content
+  });
+
+  await answer.save();
+  event.numAnswers++;
+  await event.save();
+
+  res.redirect('back');
+
+}))
 
 module.exports = router;
