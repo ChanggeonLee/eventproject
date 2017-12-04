@@ -111,7 +111,13 @@ router.put('/:id/', catchErrors(async (req, res, next)=>{
 
 // delete event page
 router.delete('/:id/', catchErrors(async (req, res, next)=> {
-  const event = await Event.findOneAndRemove(req.params.id);
+  const event = await Event.findById(req.params.id);
+  await LikeLog.findOneAndRemove({event : event._id});
+  await JoinLog.findOneAndRemove({event : event._id});
+  await Survey.findOneAndRemove({event : event._id});
+  await Answer.findOneAndRemove({event : event._id});
+  await event.remove();
+
   res.redirect('/event/');
 }));
 
@@ -164,30 +170,26 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
 // create new survey
 router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
   const user = req.user;
-  const join_log = await JoinLog.find({author : req.params.id });
-  var survey = await Survey.find({author : req.params.id});
+  const join_log = await JoinLog.findOne({author : user.id ,event :req.params.id});
+  var survey = await Survey.findOne({author : user.id});
   
   // 이벤트에 참여 하였는지 확인
   if(!join_log){
     req.flash("danger","이벤트에 참여를 해주세요");
-    res.redirect('back');
-  }
-  
-  // 설문을 하였는지 확인
-  if(survey){
+  }else if(survey){
+    // 설문을 하였는지 확인
     req.flash("danger","설문을 이미 완료 되었습니다");
-    res.redirect('back');
+  }else {
+    survey = new Survey({
+      author : user.id,
+      event : req.params.id,  
+      position : req.body.position,
+      reasons : req.body.reasons
+    });
+  
+    await survey.save();
+    req.flash("success","설문이 완료되었습니다.");
   }
-
-  survey = new Survey({
-    author : user.id,
-    event : req.params.id,  
-    position : req.body.position,
-    resons : req.body.resons
-  });
-
-  await survey.save();
-  req.flash("sucess","설문이 완료되었습니다.");
   res.redirect('back');
 }));
 
