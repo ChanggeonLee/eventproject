@@ -22,6 +22,15 @@ router.post('/event/:id/join', catchErrors(async (req, res, next) => {
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
+
+  var attendance = await JoinLog.find({event: event._id});
+  console.log("참여자수",attendance.length);
+  console.log("최대 참여자", event.attendance_max);
+  if( event.attendance_max <= attendance.length ){
+    console.log("인원이 가득 찼어요~")
+    return res.json(event);
+  }
+
   var joinLog = await JoinLog.findOne({author: req.user._id, event: event._id});
   if (!joinLog) {
     event.numAttendance++;
