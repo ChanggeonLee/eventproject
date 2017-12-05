@@ -12,6 +12,7 @@ const LikeLog = require('../models/like-log');
 const Survey = require('../models/survey');
 
 
+// 로그인 확인
 function needAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -21,6 +22,7 @@ function needAuth(req, res, next) {
   }
 }
 
+// 회원 가입 폼
 function validateForm(form, options) {
   var name = form.name || "";
   var email = form.email || "";
@@ -159,11 +161,8 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
 router.delete('/favorite/:id', needAuth, catchErrors(async (req, res, next) => {
   var favorite = await LikeLog.findById(req.params.id);
   const event = await Event.findById(favorite.event);
-  console.log("좋아요 수:",event.numLikes);
   event.numLikes--;
-  console.log("좋아요 수::",event.numLikes);
   await event.save(); 
-  console.log("좋아요 취소");
   await favorite.remove();
   res.redirect('back');
 }));
@@ -172,11 +171,8 @@ router.delete('/favorite/:id', needAuth, catchErrors(async (req, res, next) => {
 router.delete('/join/:id', needAuth, catchErrors(async (req, res, next) => {
   var join = await JoinLog.findById(req.params.id);
   const event = await Event.findById(join.event);
-  console.log("참여자수 :",event.numAttendance);
   event.numAttendance--;
-  console.log("참여자수 ::",event.numAttendance);
   await event.save();
-  console.log("참여 취소.");
   await join.remove();
   res.redirect('back');
 }));
