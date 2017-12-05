@@ -13,8 +13,8 @@ const Survey = require('../models/survey');
 
 // mailgun setting
 var mailgun = require("mailgun-js");
-var api_key = process.env.MAILGUNKEY;
-var DOMAIN = process.env.MAILGUNDOMAIN;
+var api_key = process.env.MAILGUN_API_KEY;
+var DOMAIN = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: DOMAIN});
 
 // 로그인 확인
