@@ -2,13 +2,13 @@
 .row
     .col-sm
         .numbers.
-            #[span.number.num-join= like.event.numAttendance] attendance,
-            #[span.number.num-likes= like.event.numLikes] likes,
-            #[span.number.num-answers= like.event.numAnswers] answers,
-            #[span.number.num-reads= like.event.numReads] reads
+            #[span.number.num-join= log.event.numAttendance] attendance,
+            #[span.number.num-likes= log.event.numLikes] likes,
+            #[span.number.num-answers= log.event.numAnswers] answers,
+            #[span.number.num-reads= log.event.numReads] reads
     .col-sm
         .author
-        | asked on #{moment(like.event.createdAt).format('YYYY-MM-DD')}
-        if like.author
+        | asked on #{moment(log.event.createdAt).format('YYYY-MM-DD')}
+        if log.author
             | 
-            | by #[a(href=`/users/${like.author.id}`)= like.author.name] 
+            | by #[a(href=`/users/${log.author.id}`)= log.author.name] 

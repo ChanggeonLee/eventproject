@@ -89,9 +89,16 @@ router.get('/show/:id',needAuth, catchErrors(async (req,res,next)=> {
 
 // 좋아요 페이지
 router.get('/favorite/:id',needAuth, catchErrors(async (req,res,next) => {
-  const likes = await LikeLog.find({author:req.params.id}).populate('event').populate('author');
-  console.log(likes);
-  res.render('users/favorite', {likes: likes});
+  const logs = await LikeLog.find({author:req.params.id}).populate('event').populate('author');
+  console.log(logs);
+  res.render('users/favorite', {logs: logs});
+}));
+
+// 참여한 페이지
+router.get('/join/:id',needAuth, catchErrors(async (req, res, next) => {
+  const logs = await JoinLog.find({author:req.params.id}).populate('event').populate('author');
+  console.log(logs);
+  res.render('users/join', {logs: logs});
 }));
 
 // 회원 정보 수정 수행
