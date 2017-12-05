@@ -1,4 +1,8 @@
 # eventproject
+How to connect
+==============
+http://project-event-web.herokuapp.com/
+=======================================
 
 How to start (on local)
 =======================
