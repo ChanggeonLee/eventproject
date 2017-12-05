@@ -1,12 +1,7 @@
-.answer.card(id= answer.id)
-
-  .card-body
-    .content= answer.content
-  .row.card-body
-    .col-sm
-    .col-sm.text-right
-      .author
-          | answered on #{moment(answer.createdAt).format('YYYY-MM-DD')}
-          if answer.author
-            | 
-            | by #[a(href=`/users/show/${answer.author.id}`)= answer.author.name]
+.card.card-body.text-left
+  p=answer.content
+  p.text-right=answer.name
+  
+  if currentUser && answer.author && answer.author.id == currentUser.id       
+    a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/event/answer/${answer._id}?_method=DELETE`)
+      | #[i.fa.fa-trash] 댓글 삭제

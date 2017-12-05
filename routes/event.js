@@ -186,6 +186,26 @@ router.delete('/:id/', catchErrors(async (req, res, next)=> {
   res.redirect('/event/');
 }));
 
+// delete answer
+router.delete('/answer/:id/', needAuth , catchErrors(async (req, res, next) => {
+  await Answer.findByIdAndRemove(req.params.id);
+  res.redirect('back');
+}));
+
+// delete comment
+router.delete('/comment/:id/', needAuth , catchErrors(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.id).populate('answer');
+  const event = await Event.findById(comment.event);
+  for (answer of comment.answer){
+    await Answer.findByIdAndRemove(answer);
+  }
+  event.numComments--;
+  await event.save();
+  await comment.remove();
+
+  res.redirect('back');
+}));
+
 // create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   // 기본 데이터 설정
@@ -291,6 +311,7 @@ router.post('/:id/answer', needAuth , catchErrors( async(req, res, next)=> {
 
 }));
 
+// create new comment
 router.post('/:id/comment', needAuth, catchErrors( async(req, res, next) => {
   const user = req.user;
   const event = await Event.findById(req.params.id);

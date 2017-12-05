@@ -15,13 +15,14 @@
                   | Answer
               div(id=`${num}` class='collapse')
                 each answer in comment.answer
-                  .card.card-body.text-left
-                    p=answer.content
-                    p.text-right=answer.name
+                  include _answer
                 form(action=`/event/${comment.id}/answer`, method='POST')
                   .form-group
                     label(for='answer') Your answer
                     textarea.form-control(name="content", rows="2")
                   button.btn.btn-primary(type="submit") Post Your answer
-            p
+          
+          if currentUser && comment.author && comment.author.id == currentUser.id       
+            a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/event/comment/${comment._id}?_method=DELETE`)
+              | #[i.fa.fa-trash] 댓글 삭제
             
