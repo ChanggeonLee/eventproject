@@ -68,13 +68,13 @@
   p=event.end_time.time
 
 .content
-  p=event.info
+  p !{event.info}
 
   label(for='organize') 등록 조직
   p=event.organize
   
   label(for='organize_info') 조직 설명
-  p=event.organize_info
+  p !{event.organize_info}
   
   label(for='event_type') 이벤트 종류
   p=event.event_type
