@@ -155,6 +155,32 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
 
 }));
 
+// 종아요 취소
+router.delete('/favorite/:id', needAuth, catchErrors(async (req, res, next) => {
+  var favorite = await LikeLog.findById(req.params.id);
+  const event = await Event.findById(favorite.event);
+  console.log("좋아요 수:",event.numLikes);
+  event.numLikes--;
+  console.log("좋아요 수::",event.numLikes);
+  await event.save(); 
+  console.log("좋아요 취소");
+  await favorite.remove();
+  res.redirect('back');
+}));
+
+// 참여 취소 
+router.delete('/join/:id', needAuth, catchErrors(async (req, res, next) => {
+  var join = await JoinLog.findById(req.params.id);
+  const event = await Event.findById(join.event);
+  console.log("참여자수 :",event.numAttendance);
+  event.numAttendance--;
+  console.log("참여자수 ::",event.numAttendance);
+  await event.save();
+  console.log("참여 취소.");
+  await join.remove();
+  res.redirect('back');
+}));
+  
 // 회원 탈퇴
 router.delete('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   

@@ -19,6 +19,7 @@ block content
             h3
               a.title(href=`/event/${log.event.id}`)= log.event.title
             include _event
-
+            a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/join/${log._id}?_method=DELETE`)
+              | #[i.fa.fa-trash] 참여 취소
       hr
       a.btn.btn-primary(href='/event/newevent') Create Event
