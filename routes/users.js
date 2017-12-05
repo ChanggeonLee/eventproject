@@ -11,11 +11,11 @@ const JoinLog = require('../models/join-log');
 const LikeLog = require('../models/like-log');
 const Survey = require('../models/survey');
 
-// mailgun setting
-var mailgun = require("mailgun-js");
-var api_key = process.env.MAILGUN_API_KEY;
-var DOMAIN = process.env.MAILGUN_DOMAIN;
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: DOMAIN});
+// // mailgun setting
+// var mailgun = require("mailgun-js");
+// var api_key = process.env.MAILGUN_API_KEY;
+// var DOMAIN = process.env.MAILGUN_DOMAIN;
+// var mailgun = require('mailgun-js')({apiKey: api_key, domain: DOMAIN});
 
 // 로그인 확인
 function needAuth(req, res, next) {
@@ -137,42 +137,43 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   
   console.log('이메일',user.email);
 
-  // mail gun을 사용하여 이메일을 보낸 부분
-  var data = {
-    from: 'project-event@projectevent.com',
-    to: user.email,
-    subject: '비밀번호가 재설정 되었습니다.',
-    text: '비밀번호가 재설정 되었습니다.'
-  };
+  // // mail gun을 사용하여 이메일을 보낸 부분
+  // var data = {
+  //   from: 'project-event@projectevent.com',
+  //   to: user.email,
+  //   subject: '비밀번호가 재설정 되었습니다.',
+  //   text: '비밀번호가 재설정 되었습니다.'
+  // };
   
-  mailgun.messages().send(data, function (error, body) {
-    console.log(body);
-  });
+  // mailgun.messages().send(data, function (error, body) {
+  //   console.log(body);
+  // });
   
   // node mail을 사용하여 이메일을 보낸 부분
   // 재설정 되었다고 이메일을 보내줘야된다.
-  // var transporter = nodemailer.createTransport({
-  //   service: 'naver',
-  //   auth: {
-  //     user: process.env.N_ID,
-  //     pass: process.env.N_PW
-  //   }
-  // });
+  var transporter = nodemailer.createTransport({
+    service: 'naver',
+    auth: {
+      user: process.env.N_ID,
+      pass: process.env.N_PW
+    }
+  });
 
-  // var mailOptions = {
-  //   from: process.env.N_ID,
-  //   to: user.email,
-  //   subject: 'your password Changed!!',
-  //   text: 'from.Event\n your password Changed!!'
-  // };
+  var mailOptions = {
+    from: process.env.N_ID,
+    to: user.email,
+    subject: 'your password Changed!!',
+    text: 'from.Event\n your password Changed!!'
+  };
 
-  // transporter.sendMail(mailOptions, function(error, info){
-  //   if (error) {
-  //     console.log(error);
-  //   } else {
-  //     console.log('Email sent: ' + info.response);
-  //   }
-  // });
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/signout');
 
