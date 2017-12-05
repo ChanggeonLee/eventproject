@@ -10,11 +10,10 @@
           if comment.author
             | 
             | by #[a(href=`/users/show/${comment.author.id}`)= comment.author.name]
-
             p
-              a.btn.btn-primary(data-toggle='collapse', href='#answer-btn', aria-expanded='false', aria-controls='answer-btn')
+              a.btn.btn-primary(data-toggle='collapse', href=`#${num}`, aria-expanded='false', aria-controls=`${num}`)
                   | Answer
-              #answer-btn.collapse
+              div(id=`${num}` class='collapse')
                 each answer in comment.answer
                   .card.card-body.text-left
                     p=answer.content
@@ -24,4 +23,5 @@
                     label(for='answer') Your answer
                     textarea.form-control(name="content", rows="2")
                   button.btn.btn-primary(type="submit") Post Your answer
-        
+            p
+            

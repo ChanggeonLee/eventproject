@@ -38,8 +38,10 @@ block content
         hr
         h3 #{event.numComments} Comment(s)
         .comments.show
-          each comment in comments
+          -var num=0
+          each comment in comments  
             include _comment
+            -num++
 
       form(action=`/event/${event.id}/comment`, method='POST')
         .form-group
