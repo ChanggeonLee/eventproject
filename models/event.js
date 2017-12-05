@@ -30,7 +30,7 @@ var schema = new Schema({
     // 좋아요 ,  응답 , 읽은 사람수
     numAttendance: {type:Number, default: 0},
     numLikes: {type: Number, default: 0},
-    numAnswers: {type: Number, default: 0},
+    numComments: {type: Number, default: 0},
     numReads: {type: Number, default: 0},
     img: [String],
     // 설문에 필요한 스키마를 추가할 거임

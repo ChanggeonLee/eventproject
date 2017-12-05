@@ -33,18 +33,18 @@ block content
                   .card.card-body                    
                     p=attendant.author.name
                     p=attendant.createdAt
-      if event.numAnswers > 0
+      if event.numComments > 0
         hr
-        h3 #{event.numAnswers} Answer(s)
-        .answers.show
-          each answer in answers
-            include _answer
+        h3 #{event.numComments} Comment(s)
+        .comments.show
+          each comment in comments
+            include _comment
 
-      form(action=`/event/${event.id}/answer`, method='POST')
+      form(action=`/event/${event.id}/comment`, method='POST')
         .form-group
-          label(for='answer') Your Answer
+          label(for='comment') Your Comment
           textarea.form-control(name="content", rows="5")
-        button.btn.btn-primary(type="submit") Post Your Answer
+        button.btn.btn-primary(type="submit") Post Your Comment
 
       
     script(src='/javascripts/event_client.js')

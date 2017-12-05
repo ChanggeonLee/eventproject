@@ -5,6 +5,7 @@ const catchErrors = require('../lib/async-error');
 // D.B models require
 const Event = require('../models/event');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 const Answer = require('../models/answer');
 const JoinLog = require('../models/join-log');
 const LikeLog = require('../models/like-log');
@@ -123,11 +124,11 @@ router.get('/recommendation', catchErrors( async(req, res, next)=> {
 // show event page
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
-  const answers = await Answer.find({event : req.params.id}).populate('author');
+  const comments = await Comment.find({event : req.params.id}).populate('author').populate('answer');
   const attendants = await JoinLog.find({event : req.params.id}).populate('author');
   event.numReads++;
   await event.save();
-  res.render('event/show',{event : event , attendants : attendants , answers : answers});
+  res.render('event/show',{event : event , attendants : attendants , comments : comments });
 }));
 
 // edit event page
@@ -278,6 +279,28 @@ router.post('/:id/answer', needAuth , catchErrors( async(req, res, next)=> {
 
   res.redirect('back');
 
-}))
+}));
+
+router.post('/:id/comment', needAuth, catchErrors( async(req, res, next) => {
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+
+  if (!event) {
+    req.flash('danger', '이벤트가 없습니다~');
+    return res.redirect('/');
+  }
+
+  var comment = new Comment({
+    author: user._id,
+    event: event._id,
+    content: req.body.content
+  });
+
+  await comment.save();
+  event.numComments++;
+  await event.save();
+
+  res.redirect('back');
+}));
 
 module.exports = router;
