@@ -9,4 +9,19 @@
           | commented on #{moment(comment.createdAt).format('YYYY-MM-DD')}
           if comment.author
             | 
-            | by #[a(href=`/users/${comment.author.id}`)= comment.author.name]
+            | by #[a(href=`/users/show/${comment.author.id}`)= comment.author.name]
+
+            p
+              a.btn.btn-primary(data-toggle='collapse', href='#answer-btn', aria-expanded='false', aria-controls='answer-btn')
+                  | Answer
+              #answer-btn.collapse
+                each answer in comment.answer
+                  .card.card-body.text-left
+                    p=answer.content
+                    p.text-right=answer.name
+                form(action=`/event/${comment.id}/answer`, method='POST')
+                  .form-group
+                    label(for='answer') Your answer
+                    textarea.form-control(name="content", rows="2")
+                  button.btn.btn-primary(type="submit") Post Your answer
+        

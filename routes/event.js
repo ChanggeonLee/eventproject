@@ -125,6 +125,7 @@ router.get('/recommendation', catchErrors( async(req, res, next)=> {
 router.get('/:id' , catchErrors(async (req, res, next)=> {
   const event = await Event.findById(req.params.id).populate('author');
   const comments = await Comment.find({event : req.params.id}).populate('author').populate('answer');
+  // await comments.answer.populate('author');
   const attendants = await JoinLog.find({event : req.params.id}).populate('author');
   event.numReads++;
   await event.save();
@@ -260,22 +261,31 @@ router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
 // create new answer
 router.post('/:id/answer', needAuth , catchErrors( async(req, res, next)=> {
   const user = req.user;
-  const event = await Event.findById(req.params.id);
+  const comment = await Comment.findById(req.params.id);
+  const event = await Event.findById(comment.event);
+  const author = await User.findById(user._id);
 
   if (!event) {
     req.flash('danger', '이벤트가 없습니다~');
     return res.redirect('/');
   }
+  
+  if(!comment){
+    req.flash('danger', '등록된 댓글이 없습니다~');
+    return res.redirect('/');
+  }
 
   var answer = new Answer({
     author: user._id,
+    name : author.name,
     event: event._id,
     content: req.body.content
   });
 
+  comment.answer.push(answer);
+
   await answer.save();
-  event.numAnswers++;
-  await event.save();
+  await comment.save();
 
   res.redirect('back');
 
