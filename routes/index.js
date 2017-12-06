@@ -1,12 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const catchErrors = require('../lib/async-error');
-
+const Event = require('../models/event');
+const aws = require('aws-sdk');
+const uuidv4 = require('uuid/v4');
 var User = require('../models/user');
 
-/* GET home page. */
+// 홈페이지 설정
 router.get('/', catchErrors( async(req, res, next) => {
-  res.render('index');
+  // const page = parseInt(req.query.page) || 1;
+  // const limit = parseInt(req.query.limit) || 10;
+
+  // var query = {};
+  // const term = req.query.term;
+  // if (term) {
+  //   query = {$or: [
+  //     {title: {'$regex': term, '$options': 'i'}},
+  //     {locate: {'$regex': term, '$options': 'i'}},
+  //     {event_field: {'$regex': term, '$options': 'i'}}
+  //   ]};
+  // }
+  // const events = await Event.paginate(query, {
+  //   sort: {createdAt: -1}, 
+  //   populate: 'author', 
+  //   page: page, limit: limit
+  // });
+  const events = await Event.find();
+
+  res.render('index' , {events: events});
 }));
 
 // signin page
@@ -14,33 +35,8 @@ router.get('/signin',catchErrors(async(req,res,next) => {
   res.render('signin');
 }));
 
-// 1. 아래의 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY 는 
-//    AWS의 IAM에서 새로운 사용자를 추가해서 받아야 함!
-// 2. S3_BUCKET은 AWS의 S3에서 새로 생성해서 만들어야 함
-// 3. S3 bucket은 CORS 설정이 필요함
-// 4. IAM의 user에게는 S3를 access할 수 있는 permission을 줘야 함!
-
-//=============================
-// 환경변수 설정방법
-//=============================
-// for Mac
-// export AWS_ACCESS_KEY_ID=AKIAI3SWZQ2T????????
-// export AWS_SECRET_ACCESS_KEY=Z3d??????????V637h1aDwNMFCIQYRGgL4lpuu+I
-// export S3_BUCKET=mjoverflow
-
-// for PC
-// set AWS_ACCESS_KEY_ID=AKIAI3SWZQ2T???????? 
-// set AWS_SECRET_ACCESS_KEY=Z3d??????????V637h1aDwNMFCIQYRGgL4lpuu+I
-// set S3_BUCKET=mjoverflow
-
-// for HEROKU
-// heroku config:set AWS_ACCESS_KEY_ID=xxx AWS_SECRET_ACCESS_KEY=yyy
-// heroku config:set S3_BUCKET=mjoverflow
-const aws = require('aws-sdk');
+// AWS 이미지 업로드
 const S3_BUCKET = process.env.S3_BUCKET;
-console.log(process.env.AWS_ACCESS_KEY_ID, process.env.AWS_SECRET_ACCESS_KEY);
-const uuidv4 = require('uuid/v4');
-
 router.get('/s3', function(req, res, next) {
   const s3 = new aws.S3({region: 'ap-northeast-2'});
   const filename = req.query.filename;
