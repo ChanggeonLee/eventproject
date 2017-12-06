@@ -5,25 +5,15 @@ include ../includes/_paginate
 block content
   .container
     form.form-inline.search-input-group(action='/event', method='GET')
-      i.fa.fa-search
-      input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
+      i.fa.fa-search.mr-2.mb-3
+      input.form-control.mr-sm-2.mb-3(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
 
     h1.main-title 
       | Events
       if events.total > 0
         .small Total #{events.total} events(s)
 
-    if events.total <= 0 
-      .alert.alert-info No events available yet
-    else
-      .events
-        each event in events.docs
-          .event
-            h3
-              a.title(href=`/event/${event.id}`)= event.title
-            include _event
-
-      +paginate(events, '/event', query)
-
+    include _list
+    
       hr
-      a.btn.btn-primary(href='/event/newevent') Create Event
+      a.m-3.btn.btn-primary(href='/event/newevent') Create Event

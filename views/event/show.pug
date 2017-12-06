@@ -2,7 +2,6 @@ extends ../layout
 
 block content
   .container
-    h1.main-title=event.title
 
     .event.show
       include _eventshow
@@ -47,7 +46,7 @@ block content
         .form-group
           label(for='comment') Your Comment
           textarea.form-control(name="content", rows="5")
-        button.btn.btn-primary(type="submit") Post Your Comment
+        button.btn.btn-primary.mb-3(type="submit") Post Your Comment
 
       
     script(src='/javascripts/event_client.js')

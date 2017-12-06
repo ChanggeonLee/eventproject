@@ -122,4 +122,12 @@
   overflow: hidden;
   white-space: nowrap; }
 
+.slide-img-size {
+  height: auto;
+  max-height: 450px; }
+
+.slide-img {
+  width: 90%;
+  height: 450px; }
+
 /*# sourceMappingURL=style.css.map */

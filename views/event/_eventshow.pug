@@ -1,98 +1,45 @@
-.content
-  lable(for='img')
-  if (event.img)
-    #img_slide.carousel.slide(data-ride='carousel')
-      ol.carousel-indicators.slide_num
-        -for (var i = 0 ; i < event.img.length ; i++)
-          li(data-target='#img_slide', data-slide-to=i)
+include ./_img
 
-      .carousel-inner
-        .carousel-item.active
-          img.d-block.w-100(src=event.img[0], alt='img_slide')
-        -for (var i = 1; i < event.img.length; i++) 
-          .carousel-item
-            img.d-block.w-100(src=event.img[i] , alt='img_slide')
-      
-      a.carousel-control-prev(href='#img_slide', role='button', data-slide='prev')
-        span.carousel-control-prev-icon(aria-hidden='true')
-        span.sr-only Previous
-      a.carousel-control-next(href='#img_slide', role='button', data-slide='next')
-        span.carousel-control-next-icon(aria-hidden='true')
-        span.sr-only Next
-.content
-  #map(style='width:100%;height:350px;')
-    p
-      em 마커에 마우스 커서를 올려주세요!
-    script(type='text/javascript', src='//dapi.kakao.com/v2/maps/sdk.js?appkey=6044a29c276ca4c9187d521d0a734448&libraries=services')
-    script.
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                mapOption = {
-                    center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                    level: 2 // 지도의 확대 레벨
-                };
-                // 지도를 생성합니다
-                var map = new daum.maps.Map(mapContainer, mapOption);
-                // 주소-좌표 변환 객체를 생성합니다
-                var geocoder = new daum.maps.services.Geocoder();
-                // 주소로 좌표를 검색합니다
-                geocoder.addressSearch(`#{event.locate}`, function(result, status) {
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === daum.maps.services.Status.OK) {
-                        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-                        // 결과값으로 받은 위치를 마커로 표시합니다
-                        var marker = new daum.maps.Marker({
-                            map: map,
-                            position: coords
-                        });
-                        // 인포윈도우로 장소에 대한 설명을 표시합니다
-                        var infowindow = new daum.maps.InfoWindow({
-                            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + `#{event.title}`+ '</div>'
-                        });
-                        infowindow.open(map, marker);
-                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                        map.setCenter(coords);
-                    }
-                });
-    //- script(src='/javascripts/map_mark.js')
+.content.col-10.mx-auto
+  h1.main-title=event.title
+  -var info=`이벤트 종류 : ${event.event_type} , 이벤트 분야 : ${event.event_field} , 최대 참석자 : ${event.attendance_max}`
+  p=info
+ 
+  hr
+  h4.m-2
+    label(for='time') 행사 기간
+    -var time = `${event.start_time.date} / ${event.start_time.time} ~ ${event.end_time.date} / ${event.end_time.time}`
+    p=time
 
-.content
-  label(for='locate') 이벤트 위치
-  p=event.locate
-
-  label(for='start_time') 시작 시간
-  p=event.start_time.date
-  p=event.start_time.time
   
-  label(for='end_time') 종료 시간
-  p=event.end_time.date
-  p=event.end_time.time
-
-.content
+.content.col-10.mx-auto
+  hr
+  h2(for='info') 행사 소개
   p !{event.info}
 
-  label(for='organize') 등록 조직
-  p=event.organize
-  
-  label(for='organize_info') 조직 설명
-  p !{event.organize_info}
-  
-  label(for='event_type') 이벤트 종류
-  p=event.event_type
+  hr
+  h3.m-3
+    -var organize=`행사 주최 단체 : ${event.organize}`
+    p=organize
+    p !{event.organize_info}  
 
-  label(for='event_field') 이벤트 분야
-  p=event.event_field
+  hr
+  h3.m-3
+    |티켓 가격:
+    if(event.ticket.free)
+      |free
+    else
+      -var ticket=`${event.ticket.name} : ${event.ticket.cost}`
+      p=ticket
 
-  label(for='event_type') 티켓
-  if(event.ticket.free)
-    |free
-  else
-    p=event.ticket.name
-    p=event.ticket.cost
-  
-  label(for='attendance_max') 최대 참석자
-  p=event.attendance_max
+  hr
+  h4.m-2
+    label(for='locate') 행사 장소
+  -var address = `${event.locate} ${event.detail_address}`
+  p=address
+  include ./_map
 
-.row
+.row.col-10.mx-auto
   .col-sm
     .numbers.
         #[span.number.num-votes= event.numAttendance] attendance,
@@ -101,7 +48,7 @@
         #[span.number.num-views= event.numReads] reads
   .col-sm
     .author
-      | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
+      | write on #{moment(event.createdAt).format('YYYY-MM-DD')}
       if event.author
         | 
         | by #[a(href=`/users/${event.author.id}`)= event.author.name] 

@@ -3,6 +3,7 @@ if events.total <= 0
 else
   .events
     each event in events.docs
+      hr
       .event
         h3
           a.title(href=`/event/${event.id}`)= event.title

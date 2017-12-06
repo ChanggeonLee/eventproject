@@ -1,0 +1,22 @@
+.content.col-10.mx-auto
+  lable(for='img')
+  if (event.img)
+    #img_slide.carousel.slide(data-ride='carousel')
+      ol.carousel-indicators.slide_num
+        -for (var i = 0 ; i < event.img.length ; i++)
+          li(data-target='#img_slide', data-slide-to=i)
+
+      .carousel-inner
+        .carousel-item.active.slide-img.mx-auto
+          img.d-block.w-100.h-100.slide-img-size(src=event.img[0], alt='img_slide')
+        -for (var i = 1; i < event.img.length; i++) 
+          .carousel-item.slide-img.mx-auto
+            img.d-block.w-100.h-100.slide-img-size(src=event.img[i] , alt='img_slide')
+      
+      a.carousel-control-prev(href='#img_slide', role='button', data-slide='prev')
+        span.carousel-control-prev-icon(aria-hidden='true')
+        span.sr-only Previous
+      a.carousel-control-next(href='#img_slide', role='button', data-slide='next')
+        span.carousel-control-next-icon(aria-hidden='true')
+        span.sr-only Next
+  
