@@ -108,6 +108,11 @@ router.get('/join/:id',needAuth, catchErrors(async (req, res, next) => {
   res.render('users/join', {logs: logs});
 }));
 
+router.get('/myevent/:id',needAuth, catchErrors(async (req, res, next) => {
+  const events = await Event.find(req.params.id).populate(survey);
+  res.render('users/myevent',{events : events});
+}));
+
 // 회원 정보 수정 수행
 router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);

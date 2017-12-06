@@ -1,53 +1,51 @@
 extends ../layout
 
 block content
-  .container
+  .backset
+    .container.border.mb-3.showbody
+      .event.show
+        include _eventshow
 
-    .event.show
-      include _eventshow
+        .buttons
+          if currentUser
+            button.btn.btn-primary.event-join-btn(data-id=event.id) 
+              span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+              span #[i.fa.fa-thumbs-up] Join
+        
+            button.btn.btn-primary.event-like-btn(data-id=event.id) 
+              span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
+              span #[i.fa.fa-thumbs-up] Like
+            
+            include _survey
+            
+            if event.author && event.author.id == currentUser.id
+              | 
+              a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
+              | 
+              a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
 
-      .buttons
-        if currentUser
-          button.btn.btn-primary.event-join-btn(data-id=event.id) 
-            span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-            span #[i.fa.fa-thumbs-up] Join
-      
-          button.btn.btn-primary.event-like-btn(data-id=event.id) 
-            span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
-            span #[i.fa.fa-thumbs-up] Like
-          
-          include _survey
-          
-          if event.author && event.author.id == currentUser.id
-            | 
-            a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
-            | 
-            a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
+              button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
+                | 참가자 명단
+              #collapseExample.collapse
+                .card.card-body
+                  each attendant in attendants   
+                    .card.card-body                    
+                      p=attendant.author.name
+                      p=attendant.createdAt
+                      
+        if event.numComments > 0
+          hr
+          h3 #{event.numComments} Comment(s)
+          .comments.show
+            -var num=0
+            each comment in comments  
+              include _comment
+              -num++
 
-            button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
-              | 참가자 명단
-            #collapseExample.collapse
-              .card.card-body
-                each attendant in attendants   
-                  .card.card-body                    
-                    p=attendant.author.name
-                    p=attendant.createdAt
-                    
-      if event.numComments > 0
-        hr
-        h3 #{event.numComments} Comment(s)
-        .comments.show
-          -var num=0
-          each comment in comments  
-            include _comment
-            -num++
-
-      form(action=`/event/${event.id}/comment`, method='POST')
-        .form-group
-          label(for='comment') Your Comment
-          textarea.form-control(name="content", rows="5")
-        button.btn.btn-primary.mb-3(type="submit") Post Your Comment
-
-      
-    script(src='/javascripts/event_client.js')
+        form(action=`/event/${event.id}/comment`, method='POST')
+          .form-group
+            label(for='comment') Your Comment
+            textarea.form-control(name="content", rows="5")
+          button.btn.btn-primary.mb-3(type="submit") Post Your Comment    
+      script(src='/javascripts/event_client.js')
 

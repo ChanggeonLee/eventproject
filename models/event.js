@@ -33,7 +33,7 @@ var schema = new Schema({
     numComments: {type: Number, default: 0},
     numReads: {type: Number, default: 0},
     img: [String],
-    // 설문에 필요한 스키마를 추가할 거임
+    survey: [{type: Schema.Types.ObjectId, ref: 'Survey'}],
     createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},

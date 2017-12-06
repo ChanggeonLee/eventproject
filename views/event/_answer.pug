@@ -2,6 +2,6 @@
   p=answer.content
   p.text-right=answer.name
   
-  if currentUser && answer.author && answer.author.id == currentUser.id       
+  if currentUser && answer.author && answer.author == currentUser.id       
     a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/event/answer/${answer._id}?_method=DELETE`)
       | #[i.fa.fa-trash] 댓글 삭제

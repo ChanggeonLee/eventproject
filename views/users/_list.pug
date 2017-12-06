@@ -1,0 +1,25 @@
+if events.total <= 0 
+  .alert.alert-info No events available yet
+else
+  .events
+    -var num=0
+    each event in events
+      hr
+      .event
+        h3
+          a.title(href=`/event/${event.id}`)= event.title
+        include _event
+      
+      //- 설문 내용이 들어가게 만든다.
+      p
+        a.btn.btn-primary(data-toggle='collapse', href=`#${num}`, aria-expanded='false', aria-controls=`${num}`)
+            | Answer
+        div(id=`${num}` class='collapse')
+          //- each survey in event.survey
+          //-   .col-5.text-left    
+          //-     p=survey.author.name
+          //-     p=survey.position
+          //-     p=survey.reasons
+      -num++
+
+  +paginate(events, '/event', query)

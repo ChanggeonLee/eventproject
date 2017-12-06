@@ -255,6 +255,7 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
 // create new survey
 router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
   const user = req.user;
+  const event = await Event.findById(req.params.id);
   const join_log = await JoinLog.findOne({author : user.id ,event :req.params.id});
   var survey = await Survey.findOne({author : user.id});
   
@@ -271,7 +272,8 @@ router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
       position : req.body.position,
       reasons : req.body.reasons
     });
-  
+    await event.survey.push(survey);
+    await event.save();
     await survey.save();
     req.flash("success","설문이 완료되었습니다.");
   }

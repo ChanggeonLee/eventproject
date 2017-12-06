@@ -8,25 +8,7 @@ var User = require('../models/user');
 
 // 홈페이지 설정
 router.get('/', catchErrors( async(req, res, next) => {
-  // const page = parseInt(req.query.page) || 1;
-  // const limit = parseInt(req.query.limit) || 10;
-
-  // var query = {};
-  // const term = req.query.term;
-  // if (term) {
-  //   query = {$or: [
-  //     {title: {'$regex': term, '$options': 'i'}},
-  //     {locate: {'$regex': term, '$options': 'i'}},
-  //     {event_field: {'$regex': term, '$options': 'i'}}
-  //   ]};
-  // }
-  // const events = await Event.paginate(query, {
-  //   sort: {createdAt: -1}, 
-  //   populate: 'author', 
-  //   page: page, limit: limit
-  // });
   const events = await Event.find();
-
   res.render('index' , {events: events});
 }));
 
