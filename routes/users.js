@@ -110,7 +110,7 @@ router.get('/join/:id',needAuth, catchErrors(async (req, res, next) => {
 
 // 작성한 이벤트
 router.get('/myevent/:id',needAuth, catchErrors(async (req, res, next) => {
-  const events = await Event.find(req.params.id).populate('survey').populate('author');
+  const events = await Event.find({_id:req.params.id}).populate('survey').populate('author');
   if(!events){
     req.flash('danger', "이벤트가 없습니다.");
     res.redirect('back');
