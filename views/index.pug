@@ -44,8 +44,9 @@ block content
           img.card-img-top.main_card_img(src=event.img[0], alt='Card image cap')
           |           
           .card-body.border.border-dark
-              h4.card-title=event.title
-              |             
+              h3.card-title
+                a(href=`/event/${event.id}`)=event.title
+                        
               p.card-text=event.locate
               p.card-text=event.detail_address
           |           
@@ -57,57 +58,57 @@ block content
     .col-3.mx-auto
       a.btn.btn-outline-primary.btn-lg.col-12.mx-auto(type='button' href='/event') SEE MORE
        
-    //- h1.text-center.m-2.p-2 Brows by To Categories
-    //- |   
-    //- .col-lg-10.mx-auto
-    //-     .card-deck
-    //-         .col-lg-8.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/music.jpg', alt='Card image music')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-white MUSIC
-    //-         |       
-    //-         .col-lg-4.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/art.jpg', alt='Card image art')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-brack ART
-    //-         |       
-    //-         .col-lg-4.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/party.jpg', alt='Card image party')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-white PARTY
-    //-         |       
-    //-         .col-lg-4.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/food.jpg', alt='Card image food')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-white FOOD
-    //-         |       
-    //-         .col-lg-3.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/sport.jpg', alt='Card image sport')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-white SPORT
-    //-         |       
-    //-         .col-lg-4.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/drink.jpg', alt='Card image drink')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-drak DRINK
-    //-         |       
-    //-         .col-lg-8.mx-auto
-    //-             .card.border-0
-    //-                 img.card-img.rounded(src='images/low_bar/networking.jpg', alt='Card image network')
-    //-                 |           
-    //-                 .card-img-overlay
-    //-                     h4.card-title.text-center.text-drak NETWORK
-    //- |   
+    h1.text-center.m-2.p-2 Brows by To Categories
+    |   
+    .col-lg-10.mx-auto
+        .card-deck
+            .col-lg-8.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/music.jpg', alt='Card image music')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white MUSIC
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/art.jpg', alt='Card image art')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-brack ART
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/party.jpg', alt='Card image party')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white PARTY
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/food.jpg', alt='Card image food')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white FOOD
+            |       
+            .col-lg-3.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/sport.jpg', alt='Card image sport')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-white SPORT
+            |       
+            .col-lg-4.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/drink.jpg', alt='Card image drink')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-drak DRINK
+            |       
+            .col-lg-8.mx-auto
+                .card.border-0
+                    img.card-img.rounded(src='images/low_bar/networking.jpg', alt='Card image network')
+                    |           
+                    .card-img-overlay
+                        h4.card-title.text-center.text-drak NETWORK
+    |   
     
