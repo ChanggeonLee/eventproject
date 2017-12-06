@@ -8,18 +8,36 @@ else
       .event
         h3
           a.title(href=`/event/${event.id}`)= event.title
-        include _event
+        //- .content= event.content
+        .row
+          .col-sm
+              .numbers.
+                  #[span.number.num-join= event.numAttendance] attendance,
+                  #[span.number.num-likes= event.numLikes] likes,
+                  #[span.number.num-answers= event.numComments] comments,
+                  #[span.number.num-reads= event.numReads] reads
+          .col-sm
+              .author
+                | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
+                if event.author
+                    | 
+                    | by #[a(href=`/users/${event.author.id}`)= event.author.name] 
+
       
       //- 설문 내용이 들어가게 만든다.
       p
         a.btn.btn-primary(data-toggle='collapse', href=`#${num}`, aria-expanded='false', aria-controls=`${num}`)
-            | Answer
+            | 설문 결과
         div(id=`${num}` class='collapse')
-          //- each survey in event.survey
-          //-   .col-5.text-left    
-          //-     p=survey.author.name
-          //-     p=survey.position
-          //-     p=survey.reasons
+          each survey in event.survey
+            hr
+            .col-5.text-left 
+              -var name=`참가자 이름 : ${survey.name}`   
+              -var position=`참가자 소속 : ${survey.position}`
+              -var reasons=`참여 이유 : ${survey.reasons}`
+              p=name
+              p=position
+              p=reasons
       -num++
 
   +paginate(events, '/event', query)

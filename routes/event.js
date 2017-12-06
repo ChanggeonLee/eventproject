@@ -254,10 +254,10 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
 
 // create new survey
 router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
-  const user = req.user;
   const event = await Event.findById(req.params.id);
-  const join_log = await JoinLog.findOne({author : user.id ,event :req.params.id});
-  var survey = await Survey.findOne({author : user.id});
+  const join_log = await JoinLog.findOne({author : req.user.id ,event :req.params.id});
+  const user = await User.findById(req.user.id);
+  var survey = await Survey.findOne({author : req.user.id});
   
   // 이벤트에 참여 하였는지 확인
   if(!join_log){
@@ -267,8 +267,8 @@ router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
     req.flash("danger","설문을 이미 완료 되었습니다");
   }else {
     survey = new Survey({
-      author : user.id,
-      event : req.params.id,  
+      event : req.params.id,
+      name :  user.name,
       position : req.body.position,
       reasons : req.body.reasons
     });

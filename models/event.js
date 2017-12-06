@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User' },
+    survey: [{type: Schema.Types.ObjectId, ref: 'Survey'}],
     // 이미지가 들어가는 스키마가 필요함
     title: {type: String, required: true, trim: true},
     locate: {type: String, required: true, trim: true},
@@ -33,7 +34,6 @@ var schema = new Schema({
     numComments: {type: Number, default: 0},
     numReads: {type: Number, default: 0},
     img: [String],
-    survey: [{type: Schema.Types.ObjectId, ref: 'Survey'}],
     createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: { virtuals: true},
