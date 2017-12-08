@@ -6,12 +6,12 @@
         -for (var i = 0 ; i < event.img.length ; i++)
           li(data-target='#img_slide', data-slide-to=i)
 
-      .carousel-inner
-        .carousel-item.active.slide-img.mx-auto
-          img.d-block.w-100.h-100.slide-img-size(src=event.img[0], alt='img_slide')
+      .carousel-inner.mx-auto
+        .carousel-item.active.slide-img
+          img.d-block.h-100.slide-img-size.mx-auto(src=event.img[0], alt='img_slide')
         -for (var i = 1; i < event.img.length; i++) 
-          .carousel-item.slide-img.mx-auto
-            img.d-block.w-100.h-100.slide-img-size(src=event.img[i] , alt='img_slide')
+          .carousel-item.slide-img
+            img.d-block.h-100.slide-img-size.mx-auto(src=event.img[i] , alt='img_slide')
       
       a.carousel-control-prev(href='#img_slide', role='button', data-slide='prev')
         span.n(aria-hidden='true')

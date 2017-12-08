@@ -129,10 +129,11 @@
 
 .slide-img-size {
   height: auto;
-  max-height: 450px; }
+  max-height: 700px;
+  width: auto; }
 
 .slide-img {
-  width: 90%;
+  width: 100%;
   height: 450px; }
 
 .showbody {
