@@ -224,25 +224,15 @@ script.
 //- 티켓 수정 필요
 .form-group
     label(for='ticket') Tickets
-    p
-        a.btn.btn-primary(data-toggle='collapse', href='#Free_Tickets', aria-expanded='false', aria-controls='Free_Tickets')
-            | Free Tickets
-        |   
-        a.btn.btn-primary(data-toggle='collapse', href='#Paid_Tickets', aria-expanded='false', aria-controls='Paid_Tickets')
-            | Paid Tickets
-
-    #Free_Tickets.collapse
-        .card.card-body
-            | Free Tickets
-    
-    #Paid_Tickets.collapse
-        .row
-            .col
-                |ticket name
-                input.form-control(type='ticket_name', id='ticket_name', name='ticket_name', placeholder='ticket_name' ,value=event.ticket.name)
-            .col
-                |ticket price
-                input.form-control(type='ticket_price', id='ticket_price', name='ticket_price', placeholder='ticket_price' ,value=event.ticket.cost)
+    |   ( 유료 티켓 일때 첵크해주세요 )
+    .col-lg-6
+      .input-group
+        span.input-group-addon
+          input.checkbox_ticket(type='checkbox', aria-label='Checkbox for following text input' name=free checked=!event.ticket.free)          
+        span.input-group-addon 유료 티켓 이름
+        input.form-control(type='text', aria-label='Text input with checkbox' name=ticket_name value=event.ticket.name)
+        span.input-group-addon :
+        input.form-control(type='text', aria-label='Text input with checkbox' name=ticket_price value=event.ticket.cost)
 
 //-  최대인원 
 .form-group

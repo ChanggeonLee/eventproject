@@ -262,10 +262,10 @@ router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
   event.start_time.date = req.body.start_time_date;
   event.start_time.time = req.body.start_time_time;
   event.end_time.date = req.body.end_time_date;
-  event.end_time.time = req.body.end_time_date;
+  event.end_time.time = req.body.end_time_time;
   
   // 티켓 요금 설정
-  if(req.body.ticket_name){
+  if(req.body.free){
     // 유료 티켓
     event.ticket.free = false;
     event.ticket.name = req.body.ticket_name;
