@@ -64,10 +64,6 @@
 
 @media only screen and (max-device-width : 768px) {
 
-  .main_search{
-    display: none;
-  }
-
   #bottom{
     display: none;
   }
@@ -76,10 +72,4 @@
     display: none;
   }
 
-}
-
-@media only screen and (min-device-width : 768px) {
-  .main_search_min{
-    display:none;
-  }
 }

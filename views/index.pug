@@ -16,7 +16,8 @@ block content
     |   
     .main_search.card.m-5.p-0.col-lg-10.mx-auto
         .card-body.border-0.bg-white
-            h3#exprience.display-3.text-center.m-4 Find your next experience
+            h2#exprience.d-none.d-md-block.display-3.text-center.m-4 Find your next experience
+            h2#exprience.d-md-none.text-center.m-4 Find your next experience
             |       
             .col-center
                 .input-group
@@ -25,38 +26,32 @@ block content
                       input.form-control.mr-sm-2(type='text', name='term', placeholder='Search events or categories', aria-label='Search', value=term)
                       button.btn.btn-success.btn-lg(type='submit') Search                    
     |   
-    .main_search_min
-        h3.text-center Find your next experience
-        |       
-        ul.nav.m-3
-            li.nav-item
-                input.form-control.mr-sm-2(type='text', placeholder='Search events or categories', aria-label='Search')
-            |         
-            |         
-            li.nav-item
-                button.btn.btn-success.btn-lg.my-2.my-sm-0(type='submit') Search
-    |   
-    h1.text-center.m-2.p-2 Popular Events
+    h1.text-center.m-2.p-2  Events
     |   
     .col-10.mx-auto
+      -var num = 0;
       each event in events
-        .card.col-sm-12.col-md-5.col-lg-4.card_main.border.border-dark.m-3
-          img.card-img-top.main_card_img(src=event.img[0], alt='Card image cap')
-          |           
-          .card-body.border.border-dark
-              h3.card-title
-                a(href=`/event/${event.id}`)=event.title
-                        
-              p.card-text=event.locate
-              p.card-text=event.detail_address
-          |           
-          .card-footer
-            -var time = `${event.start_time.date} ~ ${event.end_time.date}`
-              small.text-muted=time
-    
+        //- 메인페이지 뜨는 이벤트는 최대 6개로 한정
+        if num < 6
+          .card.col-sm-12.col-md-5.col-lg-4.mx-auto.card_main.border.border-dark.m-3
+            img.card-img-top.main_card_img(src=event.img[0], alt='Card image cap')
+            |           
+            .card-body.border.border-dark
+                h3.card-title
+                  a(href=`/event/${event.id}`)=event.title
+                          
+                p.card-text=event.locate
+                p.card-text=event.detail_address
+            |           
+            .card-footer
+              -var time = `${event.start_time.date} ~ ${event.end_time.date}`
+                small.text-muted=time
+              
+        -num++
+      
 
     .col-3.mx-auto
-      a.btn.btn-outline-primary.btn-lg.col-12.mx-auto(type='button' href='/event') SEE MORE
+      a.btn.btn-outline-primary.col-12.mx-auto(type='button' href='/event') SEE MORE
        
     h1.text-center.m-2.p-2 Brows by To Categories
     |   
