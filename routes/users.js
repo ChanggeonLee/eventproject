@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var catchErrors = require('../lib/async-error');
-// var nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
 
 // D.B 모델
 const Event = require('../models/event');
@@ -130,60 +130,64 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   
   user.name = req.body.name;
   user.email = req.body.email;
-  
+
   if( !user.password ){
     res.flash('danger' , 'facebook , kakao 로그인 사용자는 개인정보 변경을 할 수 없습니다.');
     return res.redirect('back');
   }
 
-  if( !await user.validatePassword(req.body.now_password)){
+  // 비밀 번호 입력이 없을경우 고려
+  if(!req.body.now_password){
+    // 비밀 번호 변경이 아닐때  
+  }else if( !await user.validatePassword(req.body.now_password)){
     req.flash('danger' , 'not match password');
     return res.redirect('back');
-  }else{
+  }else {
     user.password = await user.generateHash(req.body.new_password);
+
+    console.log('이메일',user.email);
+
+    // // mail gun을 사용하여 이메일을 보낸 부분
+    // var data = {
+    //   from: 'project-event@projectevent.com',
+    //   to: user.email,
+    //   subject: '비밀번호가 재설정 되었습니다.',
+    //   text: '비밀번호가 재설정 되었습니다.'
+    // };
+    
+    // mailgun.messages().send(data, function (error, body) {
+    //   console.log(body);
+    // });
+    
+    // node mail을 사용하여 이메일을 보낸 부분
+    // 재설정 되었다고 이메일을 보내줘야된다.
+    var transporter = nodemailer.createTransport({
+      service: 'naver',
+      auth: {
+        user: process.env.N_ID,
+        pass: process.env.N_PW
+      }
+    });
+
+    var mailOptions = {
+      from: process.env.N_ID,
+      to: user.email,
+      subject: 'Event 비밀 번호 변경!!',
+      text: 'from.Event\n 사용자님의 이메일이 성공적으로 변경되었습니다.\n이러한 활동을 한 적이 없으신가요?\n계정 복구 방법에 대해 자세히 알아보려면 사이트의 하단의 문의 사항부분을 연락 해주세요~!.'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
   }
 
   await user.save();
   req.flash('success', 'Registered successfully. Please sign in.');
   
-  console.log('이메일',user.email);
-
-  // // mail gun을 사용하여 이메일을 보낸 부분
-  // var data = {
-  //   from: 'project-event@projectevent.com',
-  //   to: user.email,
-  //   subject: '비밀번호가 재설정 되었습니다.',
-  //   text: '비밀번호가 재설정 되었습니다.'
-  // };
-  
-  // mailgun.messages().send(data, function (error, body) {
-  //   console.log(body);
-  // });
-  
-  // node mail을 사용하여 이메일을 보낸 부분
-  // 재설정 되었다고 이메일을 보내줘야된다.
-  var transporter = nodemailer.createTransport({
-    service: 'naver',
-    auth: {
-      user: process.env.N_ID,
-      pass: process.env.N_PW
-    }
-  });
-
-  var mailOptions = {
-    from: process.env.N_ID,
-    to: user.email,
-    subject: 'your password Changed!!',
-    text: 'from.Event\n your password Changed!!'
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
 
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/signout');
