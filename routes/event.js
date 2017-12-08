@@ -181,6 +181,7 @@ router.delete('/:id/', catchErrors(async (req, res, next)=> {
   await JoinLog.findOneAndRemove({event : event._id});
   await Survey.findOneAndRemove({event : event._id});
   await Answer.findOneAndRemove({event : event._id});
+  await Comment.findOneAndRemove({event : event._id});
   await event.remove();
 
   res.redirect('/event/');
