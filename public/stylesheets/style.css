@@ -141,4 +141,8 @@
 .backset {
   background-color: rgba(230, 230, 230, 0.774); }
 
+.img-fluid {
+  height: 300px;
+  width: 300px; }
+
 /*# sourceMappingURL=style.css.map */

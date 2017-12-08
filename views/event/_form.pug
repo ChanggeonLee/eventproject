@@ -19,7 +19,7 @@
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                     center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-                    level: 1 // 지도의 확대 레벨
+                    level: 4 // 지도의 확대 레벨
                 };
             
             // 지도를 생성합니다
@@ -91,7 +91,7 @@
          
 
     label(for='locate') 주소
-    input.form-control(type='locate', id='locate', name='locate', placeholder='locate' ,value=event.locat)
+    input.form-control(type='locate', id='locate', name='locate', placeholder='locate' ,value=event.locate)
     label(for='detail_address') 상세 주소
     input.form-control(type='detail_address', id='detail_address', name='detail_address', placeholder='detail_address' ,value=event.detail_address)
 
@@ -117,7 +117,9 @@
 .form-group#file-section
     label(for="img")
     input#file.form-control(type="file" , multiple="multiple")
-    //- input#url.form-control(type="text", readonly="readonly", name="img[]", value=event.img )
+    if event.img
+      -for (var i = 0; i < event.img.length; i++)
+          input(name='img[]' , value=event.img[i])
     img#preview.img-fluid(src="https://dummyimage.com/200x200/ccc/fff")
 
 script.
@@ -153,7 +155,6 @@ script.
             }
         });
     });
-
 
 //- WYSIWYG
 //- CK editor
@@ -220,7 +221,7 @@ script.
         option(value='과학') 과학
         option(value='스포츠') 스포츠
 
-//- 티켓
+//- 티켓 수정 필요
 .form-group
     label(for='ticket') Tickets
     p
