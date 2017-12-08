@@ -13,6 +13,9 @@
 .card_main {
   display: inline-block; }
 
+.img_card {
+  display: inline-block; }
+
 .footer {
   background-color: #413d3d;
   color: white; }
@@ -32,9 +35,8 @@
   color: #f6682F; }
 
 .card-img {
-  max-height: 400px;
   height: auto;
-  margin: 1em; }
+  max-height: 200px; }
 
 .main_search {
   height: 300px; }

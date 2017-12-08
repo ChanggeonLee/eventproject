@@ -17,6 +17,10 @@
   display:inline-block;
 }
 
+.img_card{
+  display:inline-block;
+}
+
 .footer{
  background-color:rgb(65, 61, 61);
  color : white;
@@ -41,9 +45,8 @@
 }
 
 .card-img{
-  max-height: 400px;
   height: auto;
-  margin: 1em;
+  max-height: 200px;
 }
 
 .main_search{

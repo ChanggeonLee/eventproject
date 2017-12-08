@@ -58,54 +58,32 @@ block content
     h1.text-center.m-2.p-2 Brows by To Recommendation
     |   
     .col-lg-10.mx-auto
-        .card-deck
-            .col-lg-8.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/music.jpg', alt='Card image music')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-white MUSIC
-            |       
-            .col-lg-4.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/art.jpg', alt='Card image art')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-brack ART
-            |       
-            .col-lg-4.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/party.jpg', alt='Card image party')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-white PARTY
-            |       
-            .col-lg-4.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/food.jpg', alt='Card image food')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-white FOOD
-            |       
-            .col-lg-3.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/sport.jpg', alt='Card image sport')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-white SPORT
-            |       
-            .col-lg-4.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/drink.jpg', alt='Card image drink')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-drak DRINK
-            |       
-            .col-lg-8.mx-auto
-                .card.border-0
-                    img.card-img.rounded(src='images/low_bar/networking.jpg', alt='Card image network')
-                    |           
-                    .card-img-overlay
-                        h4.card-title.text-center.text-drak NETWORK
-    |   
     
+      .card.col-lg-8.img_card.border-0
+        a(href='/event/recommendation?topic=numLikes')
+          img.card-img.rounded(src='images/like.jpg', alt='Card image like')
+          |           
+          .card-img-overlay
+              h4.card-title.text-center.text-brack 좋아요      
+
+      .card.col-lg-4.img_card.border-0
+        a(href='/event/recommendation?topic=numAnswers')
+          img.card-img.rounded(src='images/comment.jpg', alt='Card image comment')
+          |           
+          .card-img-overlay
+              h4.card-title.text-center.text-white 댓글
+    
+      .card.img_card.col-lg-4.border-0
+        a(href='/event/recommendation?topic=snumAttendance')
+          img.card-img.rounded(src='images/join.jpg', alt='Card image join')
+          |           
+          .card-img-overlay
+              h4.card-title.text-center.text-brack 참여자
+  
+      
+      .card.img_card.col-lg-8.border-0
+        a(href='/event/recommendation?topic=numRead')
+          img.card-img.rounded(src='images/read.jpg', alt='Card image read')
+          |           
+          .card-img-overlay
+              h4.card-title.text-center.text-white READ
