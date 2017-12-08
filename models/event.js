@@ -20,14 +20,14 @@ var schema = new Schema({
     info: {type: String, required: true, trim: true},
     organize: {type: String, required: true, trim: true},
     organize_info: {type: String, required: true, trim: true},
-    event_type: {type: String, required: true, trim: true},
-    event_field: {type: String, required: true, trim: true},
+    event_type: {type: String, trim: true},
+    event_field: {type: String, trim: true},
     ticket: {
         name: {type: String},
         free: {type: Boolean, default: true},
         cost: {type: String}
     },
-    attendance_max: {type:Number, required: true, trim: true},
+    attendance_max: {type:Number, trim: true},
     // 좋아요 ,  응답 , 읽은 사람수
     numAttendance: {type:Number, default: 0},
     numLikes: {type: Number, default: 0},

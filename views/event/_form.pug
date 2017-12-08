@@ -236,7 +236,7 @@ script.
     .col-lg-6
       .input-group
         span.input-group-addon
-          input.checkbox_ticket(type='checkbox', aria-label='Checkbox for following text input' ,name='free' ,checked=!event.ticket.free)          
+          input.checkbox_ticket(type='checkbox', aria-label='Checkbox for following text input' ,name='free' ,checked=event.ticket.free)          
         span.input-group-addon 유료 티켓 이름
         input.form-control(type='text', aria-label='Text input with checkbox' ,name='ticket_name' ,value=event.ticket.name)
         span.input-group-addon :

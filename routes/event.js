@@ -16,30 +16,60 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 
 // 이벤트 업로드 폼
-function validateForm(form, options) {
-  var name = form.name || "";
-  var email = form.email || "";
-  name = name.trim();
-  email = email.trim();
+function validateForm(form) {
+  var title = form.title || "";
+  var locate = form.locate || "";
+  var detail_address = form.detail_address || "";
+  var start_time_date = form.start_time_date || "";
+  var start_time_time = form.start_time_time || "";
+  var end_time_date = form.end_time_date || "";
+  var end_time_time = form.end_time_time || "";
+  var info = form.info || "";
+  var organize = form.organize || "";
+  var organize_info = form.organize_info || "";
 
-  if (!name) {
-    return 'Name is required.';
+  title = title.trim();
+  locate = locate.trim();
+  detail_address = detail_address.trim();
+  start_time_date = start_time_date.trim();
+  start_time_time = start_time_time.trim();
+  end_time_date = end_time_date.trim();
+  end_time_time = end_time_time.trim();
+  info = info.trim();
+  organize = organize.trim();
+  organize_info = organize_info.trim();
+  
+  if (!title) {
+    return '이벤트 이름을 입력해주세요';
   }
 
-  if (!email) {
-    return 'Email is required.';
+  if (!locate) {
+    return '지역을 입력해주세요';
   }
 
-  if (!form.password && options.needPassword) {
-    return 'Password is required.';
+  if (!detail_address) {
+    return '상세 주소를 입력해주세요';
   }
-
-  if (form.password !== form.password_confirmation) {
-    return 'Passsword do not match.';
+  if (!start_time_date) {
+    return '시작 날짜를 입력해주세요';
   }
-
-  if (form.password.length < 6) {
-    return 'Password must be at least 6 characters.';
+  if (!start_time_time) {
+    return '시작 시간을 입력해주세요';
+  }
+  if (!end_time_date) {
+    return '종료 날짜를 입력해주세요';
+  }
+  if (!end_time_time) {
+    return '종료 시간을 입력해주세요';
+  }
+  if (!info) {
+    return '내용을 입력해주세요';
+  }
+  if (!organize) {
+    return '등록 조직을 입력해주세요';
+  }
+  if (!organize_info) {
+    return '등록 조직의 설명을 입력해주세요';
   }
 
   return null;
@@ -170,6 +200,14 @@ router.get('/:id/edit' , catchErrors(async (req , res, next)=> {
 
 // change event page
 router.put('/:id/', catchErrors(async (req, res, next)=>{
+
+  var err = validateForm(req.body);
+  // 예외처리를하고
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
   var event = await Event.findById(req.params.id);
   // 기본 데이터 설정
   event.title = req.body.title;
@@ -240,9 +278,12 @@ router.delete('/comment/:id/', needAuth , catchErrors(async (req, res, next) => 
 
 // create new event 
 router.post('/:id', needAuth, catchErrors( async(req, res, next)=> {
-  // 기본 데이터 설정
-  console.log(req.body);
-  console.log(req.body.img);
+  var err = validateForm(req.body);
+  // 예외처리를하고
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
 
   event = new Event({
     author: req.user.id,
