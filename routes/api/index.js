@@ -16,7 +16,7 @@ router.use(catchErrors(async (req, res, next) => {
 
 // Join for Event
 router.post('/event/:id/join', catchErrors(async (req, res, next) => {
-  const event = await Event.findById(req.params.id);
+  const event = await Event.findById(req.params.id).populate('author');
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
@@ -34,7 +34,11 @@ router.post('/event/:id/join', catchErrors(async (req, res, next) => {
     event.numAttendance++;
     await Promise.all([
       event.save(),
-      JoinLog.create({author: req.user._id, event: event._id})
+      JoinLog.create({
+        author: req.user._id,
+        event: event._id,
+        event_name: event.author.name
+      })
     ]);
   }
   return res.json(event);
@@ -42,7 +46,7 @@ router.post('/event/:id/join', catchErrors(async (req, res, next) => {
 
 // Like for Event
 router.post('/event/:id/like', catchErrors(async (req, res, next) => {
-  const event = await Event.findById(req.params.id);
+  const event = await Event.findById(req.params.id).populate('author');
   if (!event) {
     return next({status: 404, msg: 'Not exist event'});
   }
@@ -51,7 +55,11 @@ router.post('/event/:id/like', catchErrors(async (req, res, next) => {
     event.numLikes++;
     await Promise.all([
       event.save(),
-      LikeLog.create({author: req.user._id, event: event._id})
+      LikeLog.create({
+        author: req.user._id, 
+        event: event._id,
+        event_name: event.author.name
+      })
     ]);
   }
   return res.json(event);

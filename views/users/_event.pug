@@ -1,4 +1,3 @@
-//- .content= event.content
 .row
     .col-sm
         .numbers.
@@ -8,7 +7,7 @@
             #[span.number.num-reads= log.event.numReads] reads
     .col-sm
         .author
-        | asked on #{moment(log.event.createdAt).format('YYYY-MM-DD')}
+        | created on #{moment(log.event.createdAt).format('YYYY-MM-DD')}
         if log.author
             | 
-            | by #[= log.author.name] 
+            | by #[=log.event_name] 
