@@ -20,7 +20,7 @@
                   .form-group
                     label(for='answer') Your answer
                     textarea.form-control(name="content", rows="2")
-                  button.btn.btn-primary(type="submit") Post Your answer
+                  button.btn.btn-color(type="submit") Post Your answer
           
           if currentUser && comment.author && comment.author.id == currentUser.id       
             a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/event/comment/${comment._id}?_method=DELETE`)

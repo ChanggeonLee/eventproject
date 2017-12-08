@@ -8,11 +8,11 @@ block content
 
         .buttons
           if currentUser
-            button.btn.btn-primary.event-join-btn(data-id=event.id) 
+            button.btn.btn-color.event-join-btn(data-id=event.id) 
               span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
               span #[i.fa.fa-thumbs-up] Join
         
-            button.btn.btn-primary.event-like-btn(data-id=event.id) 
+            button.btn.btn-color.event-like-btn(data-id=event.id) 
               span.for-loading #[i.fa.fa-spin.fa-refresh] Loading
               span #[i.fa.fa-thumbs-up] Like
             
@@ -24,7 +24,7 @@ block content
               | 
               a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
 
-              button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
+              button.btn.btn-color(type='button', data-toggle='collapse', data-target='#collapseExample', aria-expanded='false', aria-controls='collapseExample')
                 | 참가자 명단
               #collapseExample.collapse
                 .card.card-body
@@ -46,6 +46,6 @@ block content
           .form-group
             label(for='comment') Your Comment
             textarea.form-control(name="content", rows="5")
-          button.btn.btn-primary.mb-3(type="submit") Post Your Comment    
+          button.btn.btn-color.mb-3(type="submit") Post Your Comment    
       script(src='/javascripts/event_client.js')
 
