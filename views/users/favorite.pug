@@ -4,10 +4,7 @@ include ../includes/_paginate
 
 block content
   .container
-    //- form.form-inline.search-input-group(action='/event', method='GET')
-    //-   i.fa.fa-search
-    //-   input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
-    h1.main-title
+    h1.main-title.mt-4
       | 좋아하는 이벤트
 
     if logs.total <= 0 
@@ -15,12 +12,11 @@ block content
     else
       .logs
         each log in logs
-          .log
+          hr
+          .log.mt-4
             h3
               a.title(href=`/event/${log.event.id}`)= log.event.title
             include _event
-            a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/favorite/${log._id}?_method=DELETE`)
-              | #[i.fa.fa-trash] 좋아요 최소
 
-      hr
-      a.btn.btn-primary(href='/event/newevent') Create Event
+            a.mt-3.mb-3.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/favorite/${log._id}?_method=DELETE`)
+              | #[i.fa.fa-trash] 좋아요 최소

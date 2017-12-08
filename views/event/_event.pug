@@ -8,7 +8,7 @@
             #[span.number.num-reads= event.numReads] reads
     .col-sm
         .author
-        | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
+        | create on #{moment(event.createdAt).format('YYYY-MM-DD')}
         if event.author
             | 
-            | by #[a(href=`/users/${event.author.id}`)= event.author.name] 
+            | by #[= event.author.name] 

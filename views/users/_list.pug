@@ -8,7 +8,6 @@ else
       .event
         h3
           a.title(href=`/event/${event.id}`)= event.title
-        //- .content= event.content
         .row
           .col-sm
               .numbers.
@@ -21,7 +20,7 @@ else
                 | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
                 if event.author
                     | 
-                    | by #[a(href=`/users/${event.author.id}`)= event.author.name] 
+                    | by #[= event.author.name] 
 
       
       //- 설문 내용이 들어가게 만든다.

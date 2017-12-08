@@ -16,6 +16,11 @@ block content
         dt.col-sm-3 Facebook
         dd.col-sm-9
           img.img-fluid.rounded-circle(src= user.facebook.photo)
+
+      if user.kakao.id
+        dt.col-sm-3 Kakao
+        dd.col-sm-9
+          img.img-fluid.rounded-circle.kakaoimg(src= user.kakao.photo)      
           
     hr
     p

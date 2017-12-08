@@ -11,4 +11,4 @@
         | asked on #{moment(log.event.createdAt).format('YYYY-MM-DD')}
         if log.author
             | 
-            | by #[a(href=`/users/${log.author.id}`)= log.author.name] 
+            | by #[= log.author.name] 
