@@ -160,7 +160,7 @@ script.
 //- CK editor
 //- 상세설명
 .form-group
-    label(for='info') 상세설명
+    label(for='info') 상세설명 (다시 입력해주세요)
     textarea#editor(name="info" value=event.info)
         |
     script.
@@ -177,7 +177,7 @@ script.
 
 //- 등록 조직 설명
 .form-group
-    label(for='organize_info') 등록 조직 설명
+    label(for='organize_info') 등록 조직 설명   (다시 입력해주세요)
     textarea#organize_info(name="organize_info" value=event.organize_info)
         |
     script.
@@ -236,11 +236,11 @@ script.
     .col-lg-6
       .input-group
         span.input-group-addon
-          input.checkbox_ticket(type='checkbox', aria-label='Checkbox for following text input' name=free checked=!event.ticket.free)          
+          input.checkbox_ticket(type='checkbox', aria-label='Checkbox for following text input' ,name='free' ,checked=!event.ticket.free)          
         span.input-group-addon 유료 티켓 이름
-        input.form-control(type='text', aria-label='Text input with checkbox' name=ticket_name value=event.ticket.name)
+        input.form-control(type='text', aria-label='Text input with checkbox' ,name='ticket_name' ,value=event.ticket.name)
         span.input-group-addon :
-        input.form-control(type='text', aria-label='Text input with checkbox' name=ticket_price value=event.ticket.cost)
+        input.form-control(type='text', aria-label='Text input with checkbox' ,name='ticket_price' ,value=event.ticket.cost)
 
 //-  최대인원 
 .form-group

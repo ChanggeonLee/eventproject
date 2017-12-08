@@ -187,8 +187,9 @@ router.put('/:id/', catchErrors(async (req, res, next)=>{
   event.end_time.date = req.body.end_time_date;
   event.end_time.time = req.body.end_time_date;
   
+  console.log("티켓 유무 : ",req.body);
   // 티켓 요금 설정
-  if(req.body.ticket_name){
+  if(req.body.free){
     // 유료 티켓
     event.ticket.free = false;
     event.ticket.name = req.body.ticket_name;
