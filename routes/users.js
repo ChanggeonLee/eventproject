@@ -10,6 +10,7 @@ const Answer = require('../models/answer');
 const JoinLog = require('../models/join-log');
 const LikeLog = require('../models/like-log');
 const Survey = require('../models/survey');
+const Comment = require('../models/comment');
 
 // // mailgun setting
 // var mailgun = require("mailgun-js");
@@ -211,17 +212,30 @@ router.delete('/join/:id', needAuth, catchErrors(async (req, res, next) => {
   
 // 회원 탈퇴
 router.delete('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
-  
+  // 삭제시에 자신의 이벤트 설문 , 댓글, 등등 다 지워야한다.
   if(req.user.rootuser){
     console.log("관리자 삭제");
-    await User.findOneAndRemove(req.params.id);
+    user = await User.findById(req.params.id);
+    await Event.findOneAndRemove({author : user._id});
+    await Answer.findOneAndRemove({author : user._id});
+    await Comment.findOneAndRemove({author : user._id});
+    await Survey.findOneAndRemove({author : user._id});
+    await JoinLog.findOneAndRemove({author : user._id});
+    await LikeLog.findOneAndRemove({author : user._id});
+    await user.remove();
     res.redirect('back');
   }else{
     console.log("회원탈퇴");
-    await User.findOneAndRemove(req.params.id);
+    user = await User.findById(req.params.id);
+    await Event.findOneAndRemove({author : user.id});
+    await Answer.findOneAndRemove({author : user.id});
+    await Comment.findOneAndRemove({author : user.id});
+    await Survey.findOneAndRemove({author : user.id});
+    await JoinLog.findOneAndRemove({author : user.id});
+    await LikeLog.findOneAndRemove({author : user.id});
+    await user.remove();
     res.redirect('/signout');
   }
-  
 }));
 
 // 회원 가입 정보를 디비에 저장한다
