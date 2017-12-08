@@ -15,6 +15,36 @@ const Survey = require('../models/survey');
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 
+// 이벤트 업로드 폼
+function validateForm(form, options) {
+  var name = form.name || "";
+  var email = form.email || "";
+  name = name.trim();
+  email = email.trim();
+
+  if (!name) {
+    return 'Name is required.';
+  }
+
+  if (!email) {
+    return 'Email is required.';
+  }
+
+  if (!form.password && options.needPassword) {
+    return 'Password is required.';
+  }
+
+  if (form.password !== form.password_confirmation) {
+    return 'Passsword do not match.';
+  }
+
+  if (form.password.length < 6) {
+    return 'Password must be at least 6 characters.';
+  }
+
+  return null;
+}
+
 // Check auth
 function needAuth(req, res, next) {
     if (req.isAuthenticated()) {

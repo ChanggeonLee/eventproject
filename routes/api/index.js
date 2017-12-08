@@ -14,8 +14,6 @@ router.use(catchErrors(async (req, res, next) => {
   }
 }));
 
-router.use('/event', require('./event'));
-
 // Join for Event
 router.post('/event/:id/join', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
@@ -58,15 +56,6 @@ router.post('/event/:id/like', catchErrors(async (req, res, next) => {
   }
   return res.json(event);
 }));
-
-
-// // Like for Answer
-// router.post('/answers/:id/like', catchErrors(async (req, res, next) => {
-//   const answer = await Answer.findById(req.params.id);
-//   answer.numLikes++;
-//   await answer.save();
-//   return res.json(answer);
-// }));
 
 router.use((err, req, res, next) => {
   res.status(err.status || 500);
