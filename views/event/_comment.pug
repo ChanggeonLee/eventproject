@@ -9,7 +9,7 @@
           | commented on #{moment(comment.createdAt).format('YYYY-MM-DD')}
           if comment.author
             | 
-            | by #[a(href=`/users/show/${comment.author.id}`)= comment.author.name]
+            | by #[= comment.author.name]
             p
               a.btn.btn-primary(data-toggle='collapse', href=`#${num}`, aria-expanded='false', aria-controls=`${num}`)
                   | Answer
