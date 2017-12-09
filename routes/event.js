@@ -28,6 +28,7 @@ function validateForm(form) {
   var organize = form.organize || "";
   var organize_info = form.organize_info || "";
 
+
   title = title.trim();
   locate = locate.trim();
   detail_address = detail_address.trim();
@@ -71,7 +72,7 @@ function validateForm(form) {
   if (!organize_info) {
     return '등록 조직의 설명을 입력해주세요';
   }
-  if(!Number.isInteger(form.attendance_max)) {
+  if(!isNaN(form.attendance_max)) {
     return '최대 인원수를 숫자로 입력해주세요';
   }
 
