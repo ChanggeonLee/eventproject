@@ -22,7 +22,10 @@ else
                     | 
                     | by #[= event.author.name] 
 
-      
+      a.btn.btn-outline-secondary(href=`/event/${event.id}/edit`) Edit
+              | 
+      a.btn.btn-outline-danger.need-confirm-btn(href=`/event/${event.id}?_method=delete`) Delete
+
       //- 설문 내용이 들어가게 만든다.
       p
         a.btn.btn-primary(data-toggle='collapse', href=`#${num}`, aria-expanded='false', aria-controls=`${num}`)
@@ -38,5 +41,4 @@ else
               p=position
               p=reasons
       -num++
-
-  +paginate(events, '/event', query)
+  //- +paginate(events, '/event', query)

@@ -20,10 +20,10 @@ block content
       if user.kakao.id
         dt.col-sm-3 Kakao
         dd.col-sm-9
-          img.img-fluid.rounded-circle.kakaoimg(src= user.kakao.photo)      
+          img.rounded-circle.kakaoimg(src= user.kakao.photo)      
           
     hr
     p
-      a.btn.btn-outline-primary(href=`/users/setting/${currentUser._id}`) Edit
+      a.btn.btn-outline-primary(href=`/users/setting/${currentUser._id}`) 회원 정보 수정
       | 
-      a.btn.btn-outline-danger.need-confirm-btn(href=`/users/${user._id}?_method=DELETE`) Delete
+      a.btn.btn-outline-danger.need-confirm-btn(href=`/users/${user._id}?_method=DELETE`) 회원 탈퇴

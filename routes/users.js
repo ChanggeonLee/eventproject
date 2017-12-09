@@ -74,6 +74,12 @@ router.get('/setting/:id', needAuth ,catchErrors(async (req, res, next)=> {
   res.render('users/edit',{user:user});
 }));
 
+// 회원 정보 수정 페이지
+router.get('/setting/root/:id', needAuth ,catchErrors(async (req, res, next)=> {
+  user = await User.findById(req.params.id);
+  res.render('users/root_edit',{user:user});
+}));
+
 // manager
 router.get('/management/:id',needAuth ,catchErrors(async (req, res, next)=> {
   user = await User.findById(req.params.id);
@@ -192,6 +198,34 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
   // 홈 화면으로 리다이렉트 해준다~
   res.redirect('/signout');
 
+}));
+
+router.put('/root/:id',needAuth, catchErrors(async (req,res,next)=>{
+  user=await User.findById(req.params.id);
+  
+  if(!user){
+    res.flash('danger' , 'no users');
+    return res.redirect('back');
+  }
+  
+  user.name=req.body.name;
+  user.email=req.body.email;
+
+  if( !user.password ){
+    res.flash('danger' , 'facebook , kakao 로그인 사용자는 개인정보 변경을 할 수 없습니다.');
+    return res.redirect('back');
+  }
+
+  // 비밀 번호 입력이 없을경우 고려
+  if(req.body.new_password){
+    user.password = await user.generateHash(req.body.new_password);
+  }
+
+  await user.save();
+  req.flash('success', '사용자의 정보를 변경하였습니다.');
+
+  // 홈 화면으로 리다이렉트 해준다~
+  res.redirect('/');
 }));
 
 // 종아요 취소
