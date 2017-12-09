@@ -179,7 +179,7 @@ router.put('/:id' ,needAuth ,catchErrors(async (req, res, next)=> {
       from: process.env.N_ID,
       to: user.email,
       subject: 'Event 비밀 번호 변경!!',
-      text: 'from.Event\n 사용자님의 이메일이 성공적으로 변경되었습니다.\n이러한 활동을 한 적이 없으신가요?\n계정 복구 방법에 대해 자세히 알아보려면 사이트의 하단의 문의 사항부분을 연락 해주세요~!.'
+      text: 'from.Event\n 사용자님의 비밀 번호가 성공적으로 변경되었습니다.\n이러한 활동을 한 적이 없으신가요?\n계정 복구 방법에 대해 자세히 알아보려면 사이트의 하단의 문의 사항부분을 연락 해주세요~!.'
     };
 
     transporter.sendMail(mailOptions, function(error, info){
