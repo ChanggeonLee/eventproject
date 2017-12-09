@@ -153,7 +153,7 @@ router.get('/recommendation', catchErrors( async(req, res, next)=> {
   }else if(sort == 'numAnswers'){
      events = await Event.paginate(query, {
       sort: {createdAt: -1},
-      sort: {numAnswers: -1},
+      sort: {numComments: -1},
       populate: 'author', 
       page: page, limit: limit
     });
