@@ -1,3 +1,5 @@
+import { isNumber } from 'util';
+
 const express = require('express');
 const router = express.Router();
 const catchErrors = require('../lib/async-error');
@@ -70,6 +72,9 @@ function validateForm(form) {
   }
   if (!organize_info) {
     return '등록 조직의 설명을 입력해주세요';
+  }
+  if(!isNumber(form.attendance_max)) {
+    return '최대 인원수를 숫자로 입력해주세요';
   }
 
   return null;
@@ -341,6 +346,7 @@ router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
   }else {
     survey = new Survey({
       event : req.params.id,
+      author : user.id,
       name :  user.name,
       position : req.body.position,
       reasons : req.body.reasons
@@ -356,8 +362,8 @@ router.post('/:id/survey', needAuth , catchErrors( async(req, res, next)=>{
 // create new answer
 router.post('/:id/answer', needAuth , catchErrors( async(req, res, next)=> {
   const user = req.user;
-  const comment = await Comment.findById(req.params.id);
-  const event = await Event.findById(comment.event);
+  const comment = await Comment.findById(req.params.id).populate('event');
+  const event = await Event.findById(comment.event.id);
   const author = await User.findById(user._id);
 
   if (!event) {
