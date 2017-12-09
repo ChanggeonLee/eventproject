@@ -1,5 +1,3 @@
-import { isNumber } from 'util';
-
 const express = require('express');
 const router = express.Router();
 const catchErrors = require('../lib/async-error');
@@ -73,7 +71,7 @@ function validateForm(form) {
   if (!organize_info) {
     return '등록 조직의 설명을 입력해주세요';
   }
-  if(!isNumber(form.attendance_max)) {
+  if(!Number.isInteger(form.attendance_max)) {
     return '최대 인원수를 숫자로 입력해주세요';
   }
 

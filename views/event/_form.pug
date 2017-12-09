@@ -203,9 +203,9 @@ script.
       option(value='세미나') 세미나
       option(value='전시회') 전시회
 
-  //- script.
-  //-   var type = "#event_type option[value=#{event.event_type}]";
-  //-   $(type).attr('selected', 'selected');
+  script.
+    var type = "#event_type option[value=#{event.event_type}]";
+    $(type).attr('selected', 'selected');
     
 //- 이벤트 분야
 .form-group
@@ -225,9 +225,9 @@ script.
         option(value='종교') 종교
         option(value='과학') 과학
         option(value='스포츠') 스포츠
-    //- script.
-    //-   var field = "#event_field option[value=#{event.event_field}]";
-    //-   $(field).attr('selected', 'selected');
+    script.
+      var field = "#event_field option[value=#{event.event_field}]";
+      $(field).attr('selected', 'selected');
 
 //- 티켓 수정 필요
 .form-group
