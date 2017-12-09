@@ -88,7 +88,7 @@ function needAuth(req, res, next) {
 // event index page
 router.get('/', catchErrors( async(req, res, next) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const limit = parseInt(req.query.limit) || 5;
 
   var query = {};
   const term = req.query.term;
